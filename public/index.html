@@ -1,0 +1,1504 @@
+﻿
+
+<head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+    <script src="./CadcraftForgeUtils/build/three.js"></script>
+    <script type="text/javascript" src="./CadcraftForgeUtils/ThreeCSG.js"></script>
+    <script src="./CadcraftForgeUtils/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+
+
+    <!-- type="module" -->
+    <!-- Developer CSS -->
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #MyViewerDiv {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            background-color: #F0F8FF;
+        }
+
+        #c {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            /*background: url(images/Background.jpg) no-repeat center center ;*/
+            /* background: url(https://threejsfundamentals.org/threejs/resources/images/daikanyama.jpg) no-repeat center center ; */
+            background-size: cover;
+        }
+
+
+
+        #glasspane {
+            position: absolute;
+            left: 50px;
+            top: 50px;
+            padding: 0px 20px 10px 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border: thin solid rgba(0, 0, 0, 0.6);
+            color: #eeeeee;
+            font-family: Droid Sans, Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            cursor: pointer;
+            -webkit-box-shadow: rgba(0,0,0,0.5) 5px 5px 20px;
+            -moz-box-shadow: rgba(0,0,0,0.5) 5px 5px 20px;
+            box-shadow: rgba(0,0,0,0.5) 5px 5px 20px;
+        }
+
+        input {
+            display: inline-block;
+            width: 70px;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        select {
+            margin-bottom: 5px;
+        }
+
+        #typeofdesignlabel {
+            margin-bottom: 1px;
+        }
+
+        #typeofglasslabel {
+            margin-bottom: 1px;
+        }
+
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+            /* Style the buttons that are used to open the tab content */
+            .tab button {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+            }
+
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current tablink class */
+                .tab button.active {
+                    background-color: #ccc;
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        p {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+    <body>
+
+
+
+        <canvas id="c"></canvas>
+        <script type='module' src="./js/webGL.js"></script>
+
+        <script>
+
+            var url = new URL(window.location);
+            var c = url.searchParams.get("type");
+            console.log(c);
+
+
+
+            // var socket = io();
+            // socket.on('downloadsReady', function(msg) {
+            // console.log("Downloads is ready!!");
+            // showLink("pdfDownloadLink");
+            // });
+
+
+
+
+
+            function showLink(elementName) {
+               var x = document.getElementById(elementName);
+               x.style.display = "block";
+            }
+
+        </script>
+
+
+
+
+        <div id='glasspane'>
+            <h2 class='title'>Properties</h2>
+
+
+            <div class="tab">
+                <button class="tablinks" id="tabl1" onclick="openPanel(event, 'tab1')">Standard</button>
+                <button class="tablinks" id="tabl2" onclick="openPanel(event, 'tab2')">level 0</button>
+                <button class="tablinks" id="tabl3" onclick="openPanel(event, 'tab3')">level 1</button>
+                <button class="tablinks" id="tabl4" onclick="openPanel(event, 'tab4')">level 2</button>
+                <button class="tablinks" id="tabl4" onclick="openPanel(event, 'tab5')">level 3</button>
+                <button class="tablinks" id="tabl6" onclick="openPanel(event, 'tab6')">level 4</button>
+                <button class="tablinks" id="tabl7" onclick="openPanel(event, 'tab7')">level 5</button>
+                <button class="tablinks" id="tabl8" onclick="openPanel(event, 'tab8')">level 6</button>
+                <button class="tablinks" id="tabl9" onclick="openPanel(event, 'tab9')">Options</button>
+
+            </div>
+
+            <!-- Tab content -->
+            <div id="tab1" class="tabcontent">
+
+                <div>
+
+
+
+
+                    <div>
+                        <label>
+                            Project Number:
+                            <input id='projectnumber' type="text" value="12345" style="width: 75px;">
+
+                        </label>
+                    </div>
+
+                    <div>
+                        <label>
+                            Project name:
+                            <input id='projectname' type="text" value="8000-2016" style="width: 100px;">
+
+                        </label>
+                    </div>
+
+                    <label>
+                        Prepared by:
+                        <input id='preparedby' type="text" value="Nami" style="width: 75px;">
+
+                    </label>
+
+                    <label>
+                        Drawing number
+                        <input id='drawingnumber' type="text" value="Nami" style="width: 75px;">
+
+                    </label>
+
+                    <label>
+                        Commission Number
+                        <input id='commissionnumber' type="text" value="" style="width: 75px;">
+
+                    </label>
+
+                    <label>
+                        Elevator Designation
+                        <input id='elevatordesignation' type="text" value="" style="width: 75px;">
+
+                    </label>
+
+                    <label>
+                        Elevator Number
+                        <input id='elevatornumber' type="text" value="" style="width: 75px;">
+
+                    </label>
+
+                
+
+
+                    <!--Namilift Logo-->
+                    <div>
+                        <label>
+                            Logo
+                            <select id="logo">
+                                <option value="namilift">Namilift</option>
+                                <option value="alsaceaccess">Alsace_Access</option>
+                                <option value="emptylogo">EmptyLogo</option>
+                                <option value="msw">MSW</option>
+                                <option value="partillehiss">Partille_hiss</option>
+                                <option value="weymann">Weymann</option>
+                                <option value="oronaalta">Orona_alta</option>
+                                <option value="globus">Globus</option>
+                                <option value="zzed">ZZED</option>
+
+                            </select>
+                        </label>
+                    </div>
+
+
+                    <!--Namilift Language-->
+                    <div>
+                        <label>
+                            Language drawing:
+                            <select id="languageoptions">
+                                <option value="ENG">ENG</option>
+                                <option value="SWE">SWE</option>
+                                <option value="FRA">FRA</option>
+
+                            </select>
+                        </label>
+                    </div>
+
+
+
+
+                    <fieldset>
+
+                        <legend>General</legend>
+
+                        <!--Namilift Typ-->
+                        <div>
+                            <label>
+                                Standard:
+                                <select id="standard">
+                                    <option value="pl400">PL400</option>
+                                    <option value="gl1000">GL1000</option>
+                                    <option value="gl800">GL800</option>
+                                    <option value="pl400 halfdoor">PL400 HalfDoor</option>
+                                    <option value="pl500">PL500</option>
+                                    <option value="pl501">PL501</option>
+
+                                </select>
+                            </label>
+                        </div>
+
+                        <!--Namilift Typ-->
+                        <div>
+                            <label>
+                                Number of floors:
+                                <select id="numberoffloor" type="number">
+                                    <!-- <option value=1>1</option>-->
+                                    <option value=2>2</option>
+                                    <option value=3>3</option>
+                                    <option value=4>4</option>
+                                    <option value=5>5</option>
+                                    <option value=6>6</option>
+                                    <option value=7>7</option>
+
+                                </select>
+                            </label>
+                        </div>
+
+
+                        <!--Exact lifting height in mm-->
+                        <div>
+                            <label>
+                                Total lift height in mm
+                                <input id='liftheight' type="number" value=3000>
+
+                            </label>
+                        </div>
+
+
+                        <!--Total height of shaft -->
+                        <div>
+                            <label>
+                                Total height of shaft
+                                <input id='totalheight' type="number" value=5000>
+
+                            </label>
+                        </div>
+
+                        <!--Width of platform -->
+                        <div>
+                            <label>
+                                Width of platform
+                                <input id='widthofcar' type="number" value=1100>
+
+                            </label>
+                        </div>
+
+                        <!--Length of platform -->
+                        <div>
+                            <label>
+                                Length of platform
+                                <input id='lengthofcar' type="number" value=2000>
+
+                            </label>
+                        </div>
+
+
+                        <!--Width of elevator -->
+                        <div>
+                            <label>
+                                Width of elevator
+                                <input id='widthofelevator' type="number" value=1400>
+
+                            </label>
+                        </div>
+
+                        <!--Length of elevator -->
+                        <div>
+                            <label>
+                                Length of elevator
+                                <input id='lengthofelevator' type="number" value=1570>
+
+                            </label>
+                        </div>
+
+
+                        <!--Width of shaft -->
+                        <div>
+                            <label>
+                                Width of shaft
+                                <input id='shaftwidth' type="number" value=1440>
+
+                            </label>
+                        </div>
+
+                        <!--Length of shaft -->
+                        <div>
+                            <label>
+                                Length of shaft
+                                <input id='shaftlength' type="number" value=1620>
+
+                            </label>
+                        </div>
+
+
+
+                        <!--Pit-->
+                        <div>
+                            <label>
+                                Include Pit
+                                <input type="checkbox" name="pits" id="pits" checked>
+                            </label>
+                        </div>
+
+
+                        <!--PitsHeight -->
+                        <div>
+                            <label>
+                                PitsHeight/Min for platform
+                                <input id='pitsheight' type="number" value=50>
+
+                            </label>
+                        </div>
+
+                        <!--Height of start zone  -->
+                        <div>
+                            <label>
+                                Height of start zone
+                                <input id='zonesectionstart' type="number" value=239>
+
+                            </label>
+                        </div>
+
+                        <!--Extra Shaft height   -->
+                        <div>
+                            <label>
+                                Extra Shaft height
+                                <input id='heightabovetopelevator' type="number" value=0>
+
+                            </label>
+                        </div>
+
+                    </fieldset>
+
+
+
+
+                    <fieldset>
+
+                        <legend>Electic Box</legend>
+
+                        <!--Side or external box:-->
+                        <div>
+                            <label>
+                                Side or external box:
+                                <select id="electricboxside">
+                                    <option value="a">A</option>
+                                    <option value="b">B</option>
+                                    <option value="c">C</option>
+                                    <option value="external">External</option>
+                                </select>
+
+                            </label>
+                        </div>
+
+
+                        <!--Side or external box:-->
+                        <div>
+                            <label>
+                                Floor no:
+                                <select id="electricboxfloorno" type="number">
+                                    <option value=0>0</option>
+                                    <option value=1>1</option>
+                                    <option value=2>2</option>
+                                    <option value=3>3</option>
+                                    <option value=4>4</option>
+                                    <option value=5>5</option>
+                                    <option value=6>6</option>
+                                </select>
+
+                            </label>
+                        </div>
+
+
+                        <div>
+                            <label>
+                                Change standard placement
+                                <input type="checkbox" name="electricboxdefault" id="electricboxdefault">
+                            </label>
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Roof</legend>
+                        <!--Outdoor roof:-->
+                        <div>
+                            <label>
+                                Outdoor roof:
+                                <input type="checkbox" name="outerroof" id="outerroof">
+                            </label>
+                        </div>
+                        <!--Side for Roof:-->
+                        <div>
+                            <label>
+                                Side for Roof:
+                                <select id="outerroofside">
+                                    <option value="a">A</option>
+                                    <option value="b">B</option>
+                                    <option value="c">C</option>
+                                    <option value="d">D</option>
+                                </select>
+
+                            </label>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <legend>Windows Side</legend>
+                        <!--Windows side A:-->
+                        <div>
+                            <label>
+                                Windows side A:
+                                <input id='windowssectiona' type="text" value="0-0" style="width: 75px;">
+
+                            </label>
+                        </div>
+
+                        <div>
+                            <label>
+                                Windows side B:
+                                <input id='windowssectionb' type="text" value="0-5000" style="width: 75px;">
+
+                            </label>
+                        </div>
+
+                        <div>
+                            <label>
+                                Windows side C:
+                                <input id='windowssectionc' type="text" value="0-0" style="width: 75px;">
+
+                            </label>
+                        </div>
+
+                        <div>
+                            <label>
+                                Windows side D:
+                                <input id='windowssectiond' type="text" value="0-0" style="width: 75px;">
+
+                            </label>
+                        </div>
+
+                    </fieldset>
+
+
+                    <div>
+                        <label>
+                            Change Height of door / level:
+                            <input type="checkbox" name="defaultdoorsize" id="defaultdoorsize">
+                        </label>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <!-- Level 0 -->
+            <div id="tab2" class="tabcontent">
+
+
+                <div>
+                    <label>
+                        Lift height:
+                        <input id='liftheightlevel0' type="number" value=0>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Side for door:
+                        <select id="doorsidelevel0">
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="c">C</option>
+                            <option value="d">D</option>
+                        </select>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Type of door:
+                        <select id="typeofdoorlevel0">
+                            <option value="a1">A1</option>
+                            <option value="double">Double</option>
+                            <option value="a3">A3</option>
+                            <option value="a2">A2</option>
+                            <option value="a2:1">A2:1</option>
+                            <option value="ei60">Ei60</option>
+
+
+                        </select>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Left or right hinge:
+                        <select id="doorhingelevel0">
+                            <option value="right">Right</option>
+                            <option value="left">Left</option>
+                        </select>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Width of door
+                        <input id='doorsizelevel0' type="number" value=900>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Height of door
+                        <input id='doorheightlevel0' type="number" value=2000>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Frame height
+                        <input id='ceilingheightlevel0' type="number" value=2000>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Power door operator+
+                        <input type="checkbox" name="doorcloserlevel0" id="doorcloserlevel0" checked>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Canopy
+                        <input type="checkbox" name="canopylevel0" id="canopylevel0" checked>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Call box on door
+                        <input type="checkbox" name="callboxlevel0" id="callboxlevel0" checked>
+                    </label>
+                </div>
+
+
+
+            </div>
+
+
+            <!-- Level 1 -->
+            <div id="tab3" class="tabcontent">
+
+                <div>
+                    <label>
+                        Lift height:
+                        <input id='liftheightlevel1' type="number" value=5000>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Side for door:
+                        <select id="doorsidelevel1">
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="c">C</option>
+                            <option value="d">D</option>
+                        </select>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Type of door:
+                        <select id="typeofdoorlevel1">
+                            <option value="a1">A1</option>
+                            <option value="a3">A3</option>
+                            <option value="a2">A2</option>
+                            <option value="a2:1">A2:1</option>
+                            <option value="ei60">Ei60</option>
+                            <option value="double">Double</option>
+
+                        </select>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Left or right hinge:
+                        <select id="doorhingelevel1">
+                            <option value="right">Right</option>
+                            <option value="left">Left</option>
+                        </select>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Width of door
+                        <input id='doorsizelevel1' type="number" value=900>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Height of door
+                        <input id='doorheightlevel1' type="number" value=2000>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Frame height
+                        <input id='ceilingheightlevel1' type="number" value=2000>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Power door operator+
+                        <input type="checkbox" name="doorcloserLevel1" id="doorcloserlevel1">
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Canopy
+                        <input type="checkbox" name="canopylevel1" id="canopylevel1">
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Call box on door
+                        <input type="checkbox" name="callboxlevel1" id="callboxlevel1">
+                    </label>
+                </div>
+
+
+            </div>
+
+
+            <!-- Tab Level 2 -->
+            <div id="tab4" class="tabcontent">
+                <div>
+                    <label>
+                        Lift height:
+                        <input id='liftheightlevel2' type="number" value=7500>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Side for door:
+                        <select id="doorsidelevel2">
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="c">C</option>
+                            <option value="d">D</option>
+                        </select>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Type of door:
+                        <select id="typeofdoorlevel2">
+                            <option value="a1">A1</option>
+                            <option value="a3">A3</option>
+                            <option value="a2">A2</option>
+                            <option value="a2:1">A2:1</option>
+                            <option value="ei60">Ei60</option>
+                            <option value="double">Double</option>
+
+                        </select>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Left or right hinge:
+                        <select id="doorhingelevel2">
+                            <option value="right">Right</option>
+                            <option value="left">Left</option>
+                        </select>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Width of door
+                        <input id='doorsizelevel2' type="number" value=900>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Height of door
+                        <input id='doorheightlevel2' type="number" value=2000>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Frame height
+                        <input id='ceilingheightlevel2' type="number" value=2000>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Power door operator+
+                        <input type="checkbox" name="doorcloserlevel2" id="doorcloserlevel2">
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Canopy
+                        <input type="checkbox" name="canopylevel2" id="canopylevel2">
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Call box on door
+                        <input type="checkbox" name="callboxlevel2" id="callboxlevel2">
+                    </label>
+                </div>
+
+
+
+
+
+            </div>
+
+
+            <!-- Tab Level 3 -->
+            <div id="tab5" class="tabcontent">
+                <div>
+                    <label>
+                        Lift height:
+                        <input id='liftheightlevel3' type="number" value=10500>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Side for door:
+                        <select id="doorsidelevel3">
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="c">C</option>
+                            <option value="d">D</option>
+                        </select>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Type of door:
+                        <select id="typeofdoorlevel3">
+                            <option value="a1">A1</option>
+                            <option value="a3">A3</option>
+                            <option value="a2">A2</option>
+                            <option value="a2:1">A2:1</option>
+                            <option value="ei60">Ei60</option>
+                            <option value="double">Double</option>
+
+                        </select>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Left or right hinge:
+                        <select id="doorhingelevel3">
+                            <option value="right">Right</option>
+                            <option value="left">Left</option>
+                        </select>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Width of door
+                        <input id='doorsizelevel3' type="number" value=900>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Height of door
+                        <input id='doorheightlevel3' type="number" value=2000>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Frame height
+                        <input id='ceilingheightlevel3' type="number" value=2000>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Power door operator+
+                        <input type="checkbox" name="doorcloserlevel3" id="doorcloserlevel3">
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Canopy
+                        <input type="checkbox" name="canopylevel3" id="canopylevel3">
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Call box on door
+                        <input type="checkbox" name="callboxlevel3" id="callboxlevel3">
+                    </label>
+                </div>
+
+
+
+
+
+            </div>
+
+
+            <!-- Tab Level 4 -->
+            <div id="tab6" class="tabcontent">
+                <div>
+                    <label>
+                        Lift height:
+                        <input id='liftheightlevel4' type="number" value=14000>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Side for door:
+                        <select id="doorsidelevel4">
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="c">C</option>
+                            <option value="d">D</option>
+                        </select>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Type of door:
+                        <select id="typeofdoorlevel4">
+                            <option value="a1">A1</option>
+                            <option value="a3">A3</option>
+                            <option value="a2">A2</option>
+                            <option value="a2:1">A2:1</option>
+                            <option value="ei60">Ei60</option>
+                            <option value="double">Double</option>
+
+                        </select>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Left or right hinge:
+                        <select id="doorhingelevel4">
+                            <option value="right">Right</option>
+                            <option value="left">Left</option>
+                        </select>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Width of door
+                        <input id='doorsizelevel4' type="number" value=900>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Height of door
+                        <input id='doorheightlevel4' type="number" value=2000>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Frame height
+                        <input id='ceilingheightlevel4' type="number" value=2000>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Power door operator+
+                        <input type="checkbox" name="doorcloserlevel4" id="doorcloserlevel4">
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Canopy
+                        <input type="checkbox" name="canopylevel4" id="canopylevel4">
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Call box on door
+                        <input type="checkbox" name="callboxlevel4" id="callboxlevel4">
+                    </label>
+                </div>
+            </div>
+
+            <!-- Tab Level 5 -->
+            <div id="tab7" class="tabcontent">
+                <div>
+                    <label>
+                        Lift height:
+                        <input id='liftheightlevel5' type="number" value=17500>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Side for door:
+                        <select id="doorsidelevel5">
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="c">C</option>
+                            <option value="d">D</option>
+                        </select>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Type of door:
+                        <select id="typeofdoorlevel5">
+                            <option value="a1">A1</option>
+                            <option value="a3">A3</option>
+                            <option value="a2">A2</option>
+                            <option value="a2:1">A2:1</option>
+                            <option value="ei60">Ei60</option>
+                            <option value="double">Double</option>
+
+                        </select>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Left or right hinge:
+                        <select id="doorhingelevel5">
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                        </select>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Width of door
+                        <input id='doorsizelevel5' type="number" value=900>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Height of door
+                        <input id='doorheightlevel5' type="number" value=2000>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Frame height
+                        <input id='ceilingheightlevel5' type="number" value=2000>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Power door operator+
+                        <input type="checkbox" name="doorcloserlevel5" id="doorcloserlevel5">
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Canopy
+                        <input type="checkbox" name="canopylevel5" id="canopylevel5">
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Call box on door
+                        <input type="checkbox" name="callboxlevel5" id="callboxlevel5">
+                    </label>
+                </div>
+
+
+            </div>
+
+            <!-- Tab Level 6 -->
+            <div id="tab8" class="tabcontent">
+                <div>
+                    <label>
+                        Lift height:
+                        <input id='liftheightlevel6' type="number" value=20500>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Side for door:
+                        <select id="doorsidelevel6">
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="c">C</option>
+                            <option value="d">D</option>
+                        </select>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Type of door:
+                        <select id="typeofdoorlevel6">
+                            <option value="a1">A1</option>
+                            <option value="a3">A3</option>
+                            <option value="a2">A2</option>
+                            <option value="a2:1">A2:1</option>
+                            <option value="ei60">Ei60</option>
+                            <option value="double">Double</option>
+
+                        </select>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Left or right hinge:
+                        <select id="doorhingelevel6">
+                            <option value="right">Right</option>
+                            <option value="left">Left</option>
+                        </select>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Width of door
+                        <input id='doorsizelevel6' type="number" value=900>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Height of door
+                        <input id='doorheightlevel6' type="number" value=2000>
+
+                    </label>
+                </div>
+
+
+                <div>
+                    <label>
+                        Frame height
+                        <input id='ceilingheightlevel6' type="number" value=2000>
+
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Power door operator+
+                        <input type="checkbox" name="doorcloserlevel6" id="doorcloserlevel6">
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Canopy
+                        <input type="checkbox" name="canopylevel6" id="canopylevel6">
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Call box on door
+                        <input type="checkbox" name="callboxlevel6" id="callboxlevel6">
+                    </label>
+                </div>
+
+
+
+
+
+            </div>
+
+
+
+
+
+            <!-- Options -->
+            <div id="tab9" class="tabcontent">
+
+
+                <!-- Options1 -->
+                <div>
+                    <label>
+                        SafeLine MX2
+                        <input type="checkbox" name="safelinemx2" id="safelinemx2">
+                    </label>
+                </div>
+                <!-- Options2 -->
+                <div>
+                    <label>
+                        Safeline MX2 GSM
+                        <input type="checkbox" name="safelinemx2gsm" id="safelinemx2gsm">
+                    </label>
+                </div>
+                <!-- Options3 -->
+                <div>
+                    <label>
+                        School control Assa
+                        <input type="checkbox" name="schoolcontrolassa" id="schoolcontrolassa">
+                    </label>
+                </div>
+                <!-- Options4 -->
+                <div>
+                    <label>
+                        School control
+                        <input type="checkbox" name="schoolcontrol" id="schoolcontrol">
+                    </label>
+                </div>
+                <!-- Options7 -->
+                <div>
+                    <label>
+                        Intercom
+                        <input type="checkbox" name="intercom" id="intercom">
+                    </label>
+                </div>
+                <!-- Options8 -->
+                <div>
+                    <label>
+                        Call/send
+                        <input type="checkbox" name="callsend" id="callsend">
+                    </label>
+                </div>
+                <!-- Options9 -->
+                <div>
+                    <label>
+                        Fire alarm drive
+                        <input type="checkbox" name="firealarmdrive" id="firealarmdrive">
+                    </label>
+                </div>
+                <!-- Options10 -->
+                <div>
+                    <label>
+                        Folder seat
+                        <input type="checkbox" name="folderseat" id="folderseat">
+                    </label>
+                </div>
+                <!-- Options6 -->
+                <div>
+                    <label>
+                        Floor and voice announcement Dot Matrix
+                        <input type="checkbox" name="floorvoiceannouncement" id="floorvoiceannouncement">
+                    </label>
+                </div>
+                <!-- Options5 -->
+                <div>
+                    <label>
+                        LSF Cable
+                        <input type="checkbox" name="lsfcable" id="lsfcable">
+                    </label>
+                </div>
+                <!-- Options11 -->
+                <div>
+                    <label>
+                        Telephone
+                        <input type="checkbox" name="telephone" id="telephone">
+                    </label>
+                </div>
+                <!-- Options12 -->
+                <div>
+                    <label>
+                        Key switch
+                        <input type="checkbox" name="keyswitch" id="keyswitch">
+                    </label>
+                </div>
+                <!-- Options13 -->
+                <div>
+                    <label>
+                        UPS
+                        <input type="checkbox" name="ups" id="ups">
+                    </label>
+                </div>
+
+
+                <!-- optionsText14Custom -->
+                <fieldset>
+                    <legend>Colour</legend>
+                    <!--Surface color-->
+                    <div>
+                        <label>
+                            Color Options:
+                            <select id='colorelevatoroptions' type="text" style="width: 150px;">
+                                <option value="-">Default</option>
+                                <option value="ral">RAL</option>
+                                <option value="dobel">Dobel</option>
+                               
+                            </select>
+
+                        </label>
+                    </div>
+
+
+
+                    <div>
+                        <label>
+                            Color : Dobel:
+                            <select id='colorelevator' type="text" style="width: 150px;">
+
+                                <option value="RAL 9001">RAL 9001</option>
+                                <option value="RAL 9001">Default</option>
+                                <option value="RAL 8014">RAL 8014</option>
+                                <option value="RAL 1018">RAL 1018</option>
+                                <option value="RAL 8000">RAL 8000</option>
+                                <option value="RAL 4011">RAL 4011</option>
+
+
+
+                            </select>
+
+                        </label>
+                    </div>
+                    <!-- optionsText15Custom -->
+
+
+                    <div>
+                        <label>
+                            Color on the door:
+                            <select id='colordooroptions' type="text" style="width: 150px;">
+                                <option value="-">Default</option>
+                                <option value="ral">RAL</option>
+                                <option value="dobel">Dobel</option>
+                               
+                            </select>
+
+                        </label>
+                    </div>
+
+
+                    <div>
+                        <label>
+                            Color on the door:Dobel
+                            <select id='colordoor' type="text" style="width: 150px;">
+
+                                <option value="RAL 9001">RAL 9001</option>
+                                <option value="RAL 9001">Default</option>
+                                <option value="RAL 8014">RAL 8014</option>
+                                <option value="RAL 1018">RAL 1018</option>
+                                <option value="RAL 8000">RAL 8000</option>
+                                <option value="RAL 4011">RAL 4011</option>
+
+
+
+                            </select>
+
+                        </label>
+                    </div>
+
+                    <div>
+                        <label>
+                            Comments:
+                            <input id='comments' type="text" value="-" style="width: 75px;">
+
+                        </label>
+                    </div>
+
+
+                </fieldset>
+
+                <label>
+                    <button id='test' type="button">test </button>
+                </label>
+
+            </div>
+
+
+
+            <div>
+                <label>
+                    <button id='Apply' type="button">Apply </button>
+                </label>
+
+                <!--<label>
+            <button id='Fetch' type="button">Fetch </button>
+        </label>-->
+
+                <label>
+                    <button id='information' type="button">Information </button>
+                </label>
+
+                <label>
+                    <button id='CreateDownloads' type="button" onclick="">Create Downloads </button>
+                </label>
+            </div>
+
+            <img src="/images/Cadcraft.JPG" alt="cadcraft" style="width:173px;height:55px;">
+
+
+        </div>
+
+
+
+        <script>
+            function openPanel(evt, panelName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(panelName).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+        </script>
+
+
+
+    </body>
