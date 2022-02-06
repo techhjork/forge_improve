@@ -7,7 +7,6 @@ import cors from "cors"
 import colors from 'colors'
 
 
-
 const app = express()
 
 const port = 3000;

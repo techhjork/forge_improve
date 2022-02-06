@@ -1,4 +1,5 @@
 import httpRequest from "./fetcher.js"
+import stream from "./stream.js"
 import config from "../config.js"
 import querystring from "querystring"
 import {fileName,urls,values} from "../utils/values.js"
@@ -13,7 +14,7 @@ const {
     topAssemblyName,
     uploadZipName ,
     pdfName ,
-    downloadZipName ,
+    zipName ,
 } = fileName
 
 
@@ -110,7 +111,7 @@ export const signing= (resultUrl)=> httpRequest({
     method: 'POST',
     url: resultUrl + '/signed',
     headers: {
-        Authorization: 'Bearer ' + access_token,
+        Authorization: 'Bearer ' + values.access_token,
         'content-type': 'application/json'
     }
 })
@@ -123,33 +124,55 @@ export const signing= (resultUrl)=> httpRequest({
 ------------------------Download--------------------------
 */
 
+// ==========// PUT {{AUTODESK}}/buckets/:bucketKey/objects/:objectName //==========//
+//https://developer.api.autodesk.com/oss/v2/buckets/basbrliyiahr1x9eyiai4atpmdcuz5pf_aoutput/objects/MasterDownload.zip
+export const uploadObject = ()=> httpRequest({
+    method:"PUT",
+    url: `https://developer.api.autodesk.com/oss/v2/buckets/${encodeURIComponent(outputBucketName)}/objects/${encodeURIComponent(zipName)}`,
+    headers:{
+        Authorization: 'Bearer ' + values.access_token,
+        'content-type': 'application/json' 
+    }
+},zipName) 
+
+
+
+
+
+
 
 //==========/ PDF /=========//
-export const signanddownloadpdf = ()=>httpRequest({
+export const signPdf = ()=>httpRequest({
        method: 'POST',
        url: resultPdfUrl + '/signed',
        headers: {
-           Authorization: 'Bearer ' + access_token,
+           Authorization: 'Bearer ' + values.access_token,
            'content-type': 'application/json'
-       }
+       },
+       data:{}
 })
 
-// pdfSignedUrl = response.data.signedUrl;
-// signZip();
-// debug()
-// downloadPdf();;
 
-
-export const downloadPDF = ()=>httpRequest({
+export const downloadPdf = ()=>stream({
    method: 'GET',
-   url: pdfSignedUrl,
+   url: urls.pdfSignedUrl,
    responseType: 'stream'
-}) 
+},fileName.pdfName) 
 
 //  response.data.pipe(fs.createWriteStream(pdfPath));
 // io.emit('downloadsReady');
 
  
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -165,16 +188,18 @@ export const signZip = ()=>httpRequest({
    data:{}
 })
 
+
 //  ZIPSignedUrl = response.data.signedUrl;
 // // downloadPdf();
 //  downloadZip();
 
 
-export const downloadZip = ()=>httpRequest({
+
+export const downloadZip = ()=>stream({
     method: 'GET',
-    url: ZIPSignedUrl,
+    url: urls.ZIPSignedUrl,
     responseType: 'stream'
-})
+},fileName.zipName)
 
 // response.data.pipe(fs.createWriteStream(zipPath))
 // io.emit('downloadsReady');

@@ -1,15 +1,16 @@
-export async function stream(fileUrl, outputLocationPath){
-  const writer = createWriteStream(outputLocationPath);
+import Path from "path"
+import fs from "fs"
+import Axios from "axios"
 
-  return Axios({
-    method: 'get',
-    url: fileUrl,
-    responseType: 'stream',
-  }).then(response => {
+const __dirname = Path.resolve()
+export default async function stream(req, name){
+  console.log(req,name)
+  // const path = Path.resolve(Path.join(__dirname,'public/Downloads/'));
+  const path = Path.resolve(name);
 
-    //ensure that the user can call `then()` only when the file has
-    //been downloaded entirely.
+  const writer = fs.createWriteStream(path);
 
+  return Axios(req).then(response => {
     return new Promise((resolve, reject) => {
       response.data.pipe(writer);
       let error = null;
@@ -27,4 +28,6 @@ export async function stream(fileUrl, outputLocationPath){
       });
     });
   });
-}
+} 
+
+

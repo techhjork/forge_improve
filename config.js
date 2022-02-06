@@ -10,7 +10,7 @@ const config = {
   scopes: {
     // Required scopes for your application on server-side
     // internal: ['data:read','data:write', 'data:create', 'bucket:create', 'bucket:read', 'code:all'],
-    internal: 'data:read data:write data:create bucket:create bucket:read code:all',
+    internal: 'data:read data:write data:create bucket:create  bucket:read code:all',
     // Required scope of the token sent to the client
     public: ["viewables:read"]
   },

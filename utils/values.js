@@ -8,13 +8,13 @@ const fileName ={
 	topAssemblyName :'MasterAssembly.iam',
 	uploadZipName :'MasterAssembly.zip',
 	pdfName :'Namilift.pdf', 
-	downloadZipName :'MasterDownload.zip', 
+	zipName :'MasterDownload.zip', 
 }
 
 const urls={
 	qualifiedName:config.credentials.client_id + '.' + fileName.activityID + '+' + fileName.alias,
 	resultPdfUrl :'https://developer.api.autodesk.com/oss/v2/' + "buckets/" + encodeURIComponent(fileName.outputBucketName) + '/objects/' + encodeURIComponent(fileName.pdfName),
-	resultZipUrl :'https://developer.api.autodesk.com/oss/v2/' + "buckets/" + encodeURIComponent(fileName.outputBucketName) + '/objects/' + encodeURIComponent(fileName.downloadZipName),
+	resultZipUrl :'https://developer.api.autodesk.com/oss/v2/' + "buckets/" + encodeURIComponent(fileName.outputBucketName) + '/objects/' + encodeURIComponent(fileName.zipName),
 	inventorInputSignedUrl:"",
 	pdfSignedUrl:"",
 	ZIPSignedUrl:""
