@@ -39,22 +39,24 @@ app.use((req,res,next)=>{
  
 
 //==================/ ROUTES /===============// 
+
 import oauth from './routes/oauth.js'
 import signanddownload from "./routes/signanddownload.js"
 import htmlvalues from "./routes/htmlValues.js"
 
-app.use('/htmlvalues', htmlvalues);
 
+app.use('/htmlvalues', htmlvalues);
 app.use('/api/forge/oauth', oauth);
 
-app.use('/api/forge/datamanagement/signanddownload',signanddownload);
 
 
-
+// app.use('/api/forge/datamanagement/signanddownload',signanddownload);
 // app.use('/api/forge/oss', require('./routes/oss'));
 // app.use('/api/forge/modelderivative', require('./routes/modelderivative'));
 
 
+
+// ERROR HANDLING
 app.use((err, req, res, next) => {
    res.locals.error = err;
   const status = err.status || 500;

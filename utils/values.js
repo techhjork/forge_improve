@@ -1,5 +1,14 @@
 import config from "../config.js"
 
+
+
+const values = {
+	workItemId:"",
+	paramJSON:"",
+	access_token:""
+}
+
+
 const fileName ={
 	alias:'beta',
 	activityID : 'NamiliftActivity',	
@@ -8,22 +17,26 @@ const fileName ={
 	topAssemblyName :'MasterAssembly.iam',
 	uploadZipName :'MasterAssembly.zip',
 	pdfName :'Namilift.pdf', 
-	zipName :'MasterDownload.zip', 
+	zipName :'MasterDownload.zip',
+	svfName :'MasterDownload.svf', 
+	dwgName :'MasterDownload.dwg',
 }
+
 
 const urls={
 	qualifiedName:config.credentials.client_id + '.' + fileName.activityID + '+' + fileName.alias,
 	resultPdfUrl :'https://developer.api.autodesk.com/oss/v2/' + "buckets/" + encodeURIComponent(fileName.outputBucketName) + '/objects/' + encodeURIComponent(fileName.pdfName),
 	resultZipUrl :'https://developer.api.autodesk.com/oss/v2/' + "buckets/" + encodeURIComponent(fileName.outputBucketName) + '/objects/' + encodeURIComponent(fileName.zipName),
-	inventorInputSignedUrl:"",
+	resultSvfUrl :'https://developer.api.autodesk.com/oss/v2/' + "buckets/" + encodeURIComponent(fileName.outputBucketName) + '/objects/' + encodeURIComponent(fileName.svgName),
+	resultDwgUrl :'https://developer.api.autodesk.com/oss/v2/' + "buckets/" + encodeURIComponent(fileName.outputBucketName) + '/objects/' + encodeURIComponent(fileName.dwgName),
+	inventorInputSignedUrl:'https://developer.api.autodesk.com/oss/v2/buckets/' + encodeURIComponent(fileName.inputBucketName) + '/objects/' + encodeURIComponent(fileName.uploadZipName),
 	pdfSignedUrl:"",
-	ZIPSignedUrl:""
+	ZIPSignedUrl:"",
+	svfSignedUrl:"",
+	dwgSignedUrl:"",
+	workItemReportUrl:``
 }
 
-const values = {
-	paramJSON:"",
-	access_token:""
-}
 
 const text={
     'activityId': urls.qualifiedName,

@@ -15,6 +15,8 @@ const {
     uploadZipName ,
     pdfName ,
     zipName ,
+    svfName,
+    dwfName
 } = fileName
 
 
@@ -22,12 +24,17 @@ const {
     qualifiedName,
     resultPdfUrl ,
     resultZipUrl ,
+    resultDwgUrl,
+    resultSvfUrl,
     inventorInputSignedUrl,
     pdfSignedUrl,
     ZIPSignedUrl,
+    svfSignedUrl,
+    dwgSignedUrl,
+    workItemReportUrl    
 } = urls 
 
-const {access_token} = values
+const {access_token,} = values
 
 
 export const oauth = ()=>httpRequest({
@@ -81,7 +88,7 @@ export const createWorkItem = ()=>{
             'InventorParams': {
                 'url': values.paramJSON, 
                 'OutputPDF': {
-                    'url': fileName.resultPdfUrl,
+                    'url': fileName.resultZipUrl,
                     'headers': {
                         'Authorization': 'Bearer ' + values.access_token,
                         'Content-type': 'application/octet-stream'
@@ -95,23 +102,37 @@ export const createWorkItem = ()=>{
             }
         }
     }
-	return httpRequest({
-		method: 'POST',
-    	url: 'https://developer.api.autodesk.com/da/us-east/v3/workitems',
-    	headers: {
-    	    'Authorization': 'Bearer ' + values.access_token,
-        	'content-type': 'application/json'
-   		},
-    	data: JSON.stringify(text)
-	})
+
+    console.log("++++++++++++++++++++++\n",text)
+    return httpRequest({
+        method: 'POST',
+        url: 'https://developer.api.autodesk.com/da/us-east/v3/workitems',
+        headers: {
+            'Authorization': 'Bearer ' + values.access_token,
+            'content-type': 'application/json'
+        },
+        data: JSON.stringify(text)
+    })
 }
+
+
+
+export const getWorkItem = ()=> httpRequest({
+    method:"GET",
+    url: "https://developer.api.autodesk.com/da/us-east/v3/workitems/" + values.workItemId,
+    headers: {
+        "Authorization": 'Bearer ' + values.access_token,
+        'content-type': 'application/json'
+    }
+})
+
 
 
 export const signing= (resultUrl)=> httpRequest({
     method: 'POST',
     url: resultUrl + '/signed',
     headers: {
-        Authorization: 'Bearer ' + values.access_token,
+        "Authorization": 'Bearer ' + values.access_token,
         'content-type': 'application/json'
     }
 })
@@ -120,11 +141,42 @@ export const signing= (resultUrl)=> httpRequest({
 
 
 
+export const createBucket = ()=> httpRequest({
+    url:"https://developer.api.autodesk.com/oss/v2/buckets",
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + values.access_token,
+    },
+    data:{
+        "bucketKey":outputBucketName,
+        "policyKey":"transient"
+    }
+})
+
+
+
+
 /*
-------------------------Download--------------------------
+----------------------------------------------------------
+------------------------// Download //--------------------------
+----------------------------------------------------------
+**Upload Source File to OSS**
+
+Create a Bucket to store the files.
+Upload a file to the Bucket.
+Obtain the URN of the uploaded file.
+Convert the URN to a Base64-encoded URN.
+
 */
 
-// ==========// PUT {{AUTODESK}}/buckets/:bucketKey/objects/:objectName //==========//
+
+
+
+/*
+==========// PUT {{AUTODESK}}/buckets/:bucketKey/objects/:objectName  //==========//
+create Bucket object
+*/
+
 //https://developer.api.autodesk.com/oss/v2/buckets/basbrliyiahr1x9eyiai4atpmdcuz5pf_aoutput/objects/MasterDownload.zip
 export const uploadObject = ()=> httpRequest({
     method:"PUT",
@@ -133,10 +185,7 @@ export const uploadObject = ()=> httpRequest({
         Authorization: 'Bearer ' + values.access_token,
         'content-type': 'application/json' 
     }
-},zipName) 
-
-
-
+}) 
 
 
 
@@ -159,22 +208,8 @@ export const downloadPdf = ()=>stream({
    responseType: 'stream'
 },fileName.pdfName) 
 
-//  response.data.pipe(fs.createWriteStream(pdfPath));
-// io.emit('downloadsReady');
 
  
-
-
-
-
-
-
-
-
-
-
-
-
 
 //==========/ ZIP /=========//
 
@@ -189,34 +224,76 @@ export const signZip = ()=>httpRequest({
 })
 
 
-//  ZIPSignedUrl = response.data.signedUrl;
-// // downloadPdf();
-//  downloadZip();
-
-
-
 export const downloadZip = ()=>stream({
     method: 'GET',
     url: urls.ZIPSignedUrl,
-    responseType: 'stream'
+    responseType: 'stream',
+    headers: {
+        "Accept-Encoding": 'gzip, deflate',
+    }
 },fileName.zipName)
 
-// response.data.pipe(fs.createWriteStream(zipPath))
-// io.emit('downloadsReady');
 
 
 
 
 
+//==========/ DWG /=========//
+
+
+
+export const signDwg = ()=>httpRequest({
+   method: 'POST',
+   url: resultDwgUrl + '/signed',
+   headers: {
+       Authorization: 'Bearer ' + values.access_token,
+       'content-type': 'application/json'
+   },
+   data:{}
+})
+
+
+export const downloadDwg = ()=>stream({
+    method: 'GET',
+    url: urls.dwgSignedUrl,
+    responseType: 'stream',  
+},fileName.dwgName)
+
+
+
+//==========/ DWG /=========//
+
+
+
+export const signSvf = ()=>httpRequest({
+   method: 'POST',
+   url: resultSvfUrl + '/signed',
+   headers: {
+       Authorization: 'Bearer ' + values.access_token,
+       'content-type': 'application/json'
+   },
+   data:{}
+})
+
+
+export const downloadSvf= ()=>stream({
+    method: 'GET',
+    url: urls.svfSignedUrl,
+    responseType: 'stream',  
+},fileName.dwgName)
 
 
 
 
 
-
-
-
-
+// ============== Report =============//
+export const downloadWorkItemReport =(url)=>{
+    console.log("+++++++++downloadWorkItemReport",url)
+    return stream({
+        method: 'GET',
+        url,
+        responseType: 'stream',  
+},"report")}
 
 
 
