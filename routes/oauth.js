@@ -10,6 +10,7 @@ import {
    createWorkItem,
    getWorkItem,
    downloadWorkItemReport,
+   downloadSignedresources,
    uploadObject,
    signZip,
    downloadZip,
@@ -71,7 +72,8 @@ router.get("/", async (req, res) => {
          if(typeof getWorkIte == "object"){
             if(getWorkIte?.status == "success"){
                clearInterval(intervalId)
-               downloadWorkItemReport(getWorkIte.reportUrl)
+               await downloadWorkItemReport(getWorkIte.reportUrl)
+               await downloadSignedresources(urls.inventorInputSignedUrl)
                return;
             }else if(statusWorkItem.includes(getWorkIte?.status)){
                clearInterval(intervalId)
@@ -79,12 +81,7 @@ router.get("/", async (req, res) => {
          }
          getWorkIte = await getWorkItem()
          console.log("getWorkItem() ",getWorkIte) 
-      },3000)
-
-
-      
-
-
+      },5000)
 
 
 
@@ -127,3 +124,10 @@ router.get("/", async (req, res) => {
 });
 
 export default router;
+
+
+
+
+
+
+

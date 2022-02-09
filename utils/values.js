@@ -27,7 +27,7 @@ const urls={
 	qualifiedName:config.credentials.client_id + '.' + fileName.activityID + '+' + fileName.alias,
 	resultPdfUrl :'https://developer.api.autodesk.com/oss/v2/' + "buckets/" + encodeURIComponent(fileName.outputBucketName) + '/objects/' + encodeURIComponent(fileName.pdfName),
 	resultZipUrl :'https://developer.api.autodesk.com/oss/v2/' + "buckets/" + encodeURIComponent(fileName.outputBucketName) + '/objects/' + encodeURIComponent(fileName.zipName),
-	resultSvfUrl :'https://developer.api.autodesk.com/oss/v2/' + "buckets/" + encodeURIComponent(fileName.outputBucketName) + '/objects/' + encodeURIComponent(fileName.svgName),
+	resultSvfUrl :'https://developer.api.autodesk.com/oss/v2/' + "buckets/" + encodeURIComponent(fileName.outputBucketName) + '/objects/' + encodeURIComponent(fileName.svfName),
 	resultDwgUrl :'https://developer.api.autodesk.com/oss/v2/' + "buckets/" + encodeURIComponent(fileName.outputBucketName) + '/objects/' + encodeURIComponent(fileName.dwgName),
 	inventorInputSignedUrl:'https://developer.api.autodesk.com/oss/v2/buckets/' + encodeURIComponent(fileName.inputBucketName) + '/objects/' + encodeURIComponent(fileName.uploadZipName),
 	pdfSignedUrl:"",

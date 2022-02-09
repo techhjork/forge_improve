@@ -300,6 +300,13 @@ export const downloadWorkItemReport =(url)=>{
 
 
 
+export const downloadSignedresources = (url)=> stream({
+    method:'GET',
+    url,
+    responseType: 'stream'
+},fileName.zipName)
+
+
 
 
 
@@ -323,4 +330,66 @@ const resultZipUrl = 'https://developer.api.autodesk.com/oss/v2/' + "buckets/" +
 
 const inventorInputSignedUrl = '';
 var topAssemblyName = 'MasterAssembly.iam';
+
+
+const text={
+    'activityId': urls.qualifiedName,
+    'arguments': {
+            'InventorDoc': {
+                'url': urls.inventorInputSignedUrl, //'https://developer.api.autodesk.com/oss/v2/buckets/' + encodeURIComponent(inputBucketName) + '/objects/' + encodeURIComponent(uploadZipName) + '/' + encodeURIComponent(topAssemblyName),
+                // 'pathInZip': fileName.topAssemblyName
+            },
+            'InventorParams': {
+                'url': values.paramJSON, 
+                'OutputPDF': {
+                    'url': urls.resultPdfUrl,
+                    'headers': {
+                        'Authorization': 'Bearer ' + values.access_token,
+                        'Content-type': 'application/octet-stream'
+                    },
+                    'verb': 'put'
+                },
+                // 'OutputSVF': {
+                //     'url': urls.resultSvfUrl,
+                //     'headers': {
+                //         'Authorization': 'Bearer ' + values.access_token,
+                //         'Content-type': 'application/octet-stream'
+                //     },
+                //     'verb': 'put'
+                // },
+                // 'OutputDWG': {
+                //     'url': urls.resultDwgUrl,
+                //     'headers': {
+                //         'Authorization': 'Bearer ' + values.access_token,
+                //         'Content-type': 'application/octet-stream'
+                //     },
+                //     'verb': 'put'
+                // },
+                // 'OutputIpt':{
+                //     "url": "https://developer.api.autodesk.com/oss/v2/signedresources/2922c578-da22-4a35-a943-6cfeb4484009?region=US",
+                //     "headers": {
+                //       "Authorization": 'Authorization': 'Bearer ' + values.access_token,
+                //       "Content-type": "application/octet-stream"
+                //     },
+                //     "verb": "put"
+                // },
+                // "OutputBmp": {
+                //     "url": "https://developer.api.autodesk.com/oss/v2/signedresources/a4717873-88db-49c1-9f41-98705a199622?region=US",
+                //     "headers": {
+                //       "Authorization": "",
+                //       "Content-type": "application/octet-stream"
+                //     },
+                //     "verb": "put"
+                // },
+                'onComplete': {
+                    'verb': 'post',
+                    'url': config.credentials.callback_url + '/api/forge/datamanagement/signanddownload'
+                }
+            }
+        }
+    }
+
+
+
+
 */
