@@ -75,11 +75,11 @@ export const signandworkitemInventor =()=>httpRequest({
 
 
 /*
-    @param app.post('/htmlvalues') XML in webGL in ParamJSON
+    @param app.post('/htmlvalues') JSON in webGL in ParamJSON
 */
 export const createWorkItem = ()=>{
     const text={
-    'activityId': urls.qualifiedName,
+    'activityId':urls.qualifiedName,
     'arguments': {
             'InventorDoc': {
                 'url': urls.inventorInputSignedUrl, //'https://developer.api.autodesk.com/oss/v2/buckets/' + encodeURIComponent(inputBucketName) + '/objects/' + encodeURIComponent(uploadZipName) + '/' + encodeURIComponent(topAssemblyName),
@@ -95,6 +95,31 @@ export const createWorkItem = ()=>{
                     },
                     'verb': 'put'
                 },
+                'OutputZIP': {
+                    'url': fileName.resultZipUrl,
+                    'headers': {
+                        'Authorization': 'Bearer ' + values.access_token,
+                        'Content-type': 'application/octet-stream'
+                    },
+                    'verb': 'put'
+                },
+                
+                'OutputSVF': {
+                    'url': urls.resultSvfUrl,
+                    'headers': {
+                        'Authorization': 'Bearer ' + values.access_token,
+                        'Content-type': 'application/octet-stream'
+                    },
+                    'verb': 'put'
+                },
+                'OutputDWG': {
+                    'url': urls.resultDwgUrl,
+                    'headers': {
+                        'Authorization': 'Bearer ' + values.access_token,
+                        'Content-type': 'application/octet-stream'
+                    },
+                    'verb': 'put'
+                },
                 'onComplete': {
                     'verb': 'post',
                     'url': config.credentials.callback_url + '/api/forge/datamanagement/signanddownload'
@@ -103,7 +128,7 @@ export const createWorkItem = ()=>{
         }
     }
 
-    console.log("++++++++++++++++++++++\n",text)
+    console.log("++++++++++++++++++++++\n",text,values.access_token);
     return httpRequest({
         method: 'POST',
         url: 'https://developer.api.autodesk.com/da/us-east/v3/workitems',
@@ -178,14 +203,16 @@ create Bucket object
 */
 
 //https://developer.api.autodesk.com/oss/v2/buckets/basbrliyiahr1x9eyiai4atpmdcuz5pf_aoutput/objects/MasterDownload.zip
-export const uploadObject = ()=> httpRequest({
+export const uploadObject = ()=>{ 
+    console.log(`API @PUT UploadObject() https://developer.api.autodesk.com/oss/v2/buckets/${encodeURIComponent(outputBucketName)}/objects/${encodeURIComponent(zipName)}`)
+    return httpRequest({
     method:"PUT",
     url: `https://developer.api.autodesk.com/oss/v2/buckets/${encodeURIComponent(outputBucketName)}/objects/${encodeURIComponent(zipName)}`,
     headers:{
         Authorization: 'Bearer ' + values.access_token,
         'content-type': 'application/json' 
     }
-}) 
+})}
 
 
 
@@ -202,11 +229,13 @@ export const signPdf = ()=>httpRequest({
 })
 
 
-export const downloadPdf = ()=>stream({
+export const downloadPdf = ()=>{
+    console.log("urls.pdfSignedUrl :==============",urls.pdfSignedUrl)
+    return stream({
    method: 'GET',
    url: urls.pdfSignedUrl,
    responseType: 'stream'
-},fileName.pdfName) 
+},fileName.pdfName)} 
 
 
  
@@ -215,7 +244,7 @@ export const downloadPdf = ()=>stream({
 
 export const signZip = ()=>httpRequest({
    method: 'POST',
-   url: resultZipUrl + '/signed',
+   url: urls.resultZipUrl + '/signed',
    headers: {
        Authorization: 'Bearer ' + values.access_token,
        'content-type': 'application/json'
@@ -244,7 +273,7 @@ export const downloadZip = ()=>stream({
 
 export const signDwg = ()=>httpRequest({
    method: 'POST',
-   url: resultDwgUrl + '/signed',
+   url: urls.resultDwgUrl + '/signed',
    headers: {
        Authorization: 'Bearer ' + values.access_token,
        'content-type': 'application/json'
@@ -267,7 +296,7 @@ export const downloadDwg = ()=>stream({
 
 export const signSvf = ()=>httpRequest({
    method: 'POST',
-   url: resultSvfUrl + '/signed',
+   url: urls.resultSvfUrl + '/signed',
    headers: {
        Authorization: 'Bearer ' + values.access_token,
        'content-type': 'application/json'
@@ -280,7 +309,7 @@ export const downloadSvf= ()=>stream({
     method: 'GET',
     url: urls.svfSignedUrl,
     responseType: 'stream',  
-},fileName.dwgName)
+},fileName.svfName)
 
 
 
@@ -305,6 +334,52 @@ export const downloadSignedresources = (url)=> stream({
     url,
     responseType: 'stream'
 },fileName.zipName)
+
+
+
+export const translateFile = (urn)=>{ 
+    const json={
+        "input": {
+            "urn":urn,
+            "compressedUrn": true,
+            "rootFilename": "MasterAssembly.iam"
+        },
+        "output": {
+            "formats": [
+                {
+                    "type": "svf",
+                    "views": [
+                        "2d",
+                        "3d"
+                    ]
+                }
+            ]
+        }
+    }
+    console.log(json)
+    return httpRequest({
+    method: 'POST',
+    url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/job',
+    headers: {
+        'Authorization': 'Bearer ' + values.access_token,
+        'Content-Type': 'application/json',
+        'x-ads-force':'true'
+    },
+    data:JSON.stringify(json)
+})}
+
+export const checkTranslationProgress=(urn)=>httpRequest({
+    method: 'GET',
+    url:'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',
+    headers: {
+        'Authorization': 'Bearer ' + values.access_token,
+        'Content-Type': 'application/json',
+        'x-ads-force':'true'
+    }
+})
+    
+
+
 
 
 

@@ -1,0 +1,3147 @@
+{
+	"info": {
+		"_postman_id": "5449f95f-d32b-4612-9a90-847ca0c1a472",
+		"name": "Forge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "/authentication/v1/authenticate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"try{\r",
+									"    var parseJson = JSON.parse(responsebody)\r",
+									"    postman.setEnvironmentVariable(\"ACCESS_TOKEN\", parseJson.access_token)\r",
+									"}catch(ex){\r",
+									"    postman.setNextRequest(null)\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "{{FORGE_CLIENT_ID}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{FORGE_CLIENT_SECRET}}",
+									"type": "text"
+								},
+								{
+									"key": "scopes",
+									"value": "{{FORGE_SCOPES}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{FORGE_HOST}}/authentication/v1/authenticate",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"authentication",
+								"v1",
+								"authenticate"
+							]
+						},
+						"description": "Obtains a 2-legged authentication access token for reading viewables."
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{FORGE_HOST}}/authentication/v1/authenticate",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"authentication",
+								"v1",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Design Automation v3",
+			"item": [
+				{
+					"name": "Engines",
+					"item": [
+						{
+							"name": "List engines",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{FORGE_HOST}}/da/us-east/v3/engines",
+									"host": [
+										"{{FORGE_HOST}}"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"engines"
+									]
+								},
+								"description": "Get list of all available engines."
+							},
+							"response": []
+						},
+						{
+							"name": "Get engine details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{FORGE_HOST}}/da/us-east/v3/engines/:id",
+									"host": [
+										"{{FORGE_HOST}}"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"engines",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "Autodesk.Inventor+23"
+										}
+									]
+								},
+								"description": "Get list of all available engines."
+							},
+							"response": []
+						},
+						{
+							"name": "Get engine status",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{FORGE_HOST}}/da/us-east/v3/health/:engine",
+									"host": [
+										"{{FORGE_HOST}}"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"health",
+										":engine"
+									],
+									"variable": [
+										{
+											"key": "engine",
+											"value": "Inventor"
+										}
+									]
+								},
+								"description": "Get list of all available engines."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "App Bundles",
+					"item": [
+						{
+							"name": "Create app bundle",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"NamiliftActivity\",\n    \"engine\": \"Autodesk.Inventor+2021\",\n    \"description\": \"Change Parameters AppBundle based on Inventor 2020\"\n  }"
+								},
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/appbundles",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"appbundles"
+									]
+								},
+								"description": "Creates new app bundle."
+							},
+							"response": []
+						},
+						{
+							"name": "List app bundles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/appbundles",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"appbundles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get app bundle details",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOnJlYWQiLCJkYXRhOndyaXRlIiwiZGF0YTpjcmVhdGUiLCJidWNrZXQ6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJjb2RlOmFsbCJdLCJjbGllbnRfaWQiOiJCQXNCUkxpeWlhSFIxWDllWWlBSTRBVFBtZGN1WjVQZiIsImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9hand0ZXhwNjAiLCJqdGkiOiJaeFc2eDQ0N2NpQ2F2cjZXZExuVW1qZ2ZFNDF4VnFjVDg2cWFuc1dJUlFnTUxYU0FVOTB1dlQ1QXhpZUdCdlJxIiwiZXhwIjoxNjQ0NjQxMzYyfQ.cP07H9Ar06-7DcMCyfBt6GiY1G0dkIaNFlyj9luyfFAiNr6vfoZjte4Yd4GW9S2cpDJ8lHtq-R2YKPV0lZq3GJ7enjzYCzjMc0yLVHvUKHaAM1bPBxmyLtVEnpwiF4SHq-sBhBgLZt349lqamtkvLP7lhiaTDZRLcJGe_-vGIwZKszThwIKznSIP4du-D1fP6F0Q_dEmSVTgR9vESEnQgoZzmGnoouLC7JZI53XdKQYOhZijCln_hqRstNVHwcD5HrTuvu6nAC3xVDxgHTfF9tvsQiEGe_NUgbS92ff_kzSo1XdZsB5MBViCHT4Vj57ozlDpQ3PBjDzARKXd2dgVXw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "key",
+											"value": "apps/AxKpTedNAliBEA6LWLkvrMtSZBGKsKax/NamiliftActivity/1",
+											"type": "text"
+										},
+										{
+											"key": "content-type",
+											"value": "application/octet-stream",
+											"type": "text"
+										},
+										{
+											"key": "policy",
+											"value": "eyJleHBpcmF0aW9uIjoiMjAyMi0wMi0xOFQwNToyNToxOS4yMDgyNDkxWiIsImNvbmRpdGlvbnMiOlt7ImtleSI6ImFwcHMvQXhLcFRlZE5BbGlCRUE2TFdMa3ZyTXRTWkJHS3NLYXgvTmFtaWxpZnRBY3Rpdml0eS8xIn0seyJidWNrZXQiOiJkYXNwcm9kLXN0b3JlIn0seyJzdWNjZXNzX2FjdGlvbl9zdGF0dXMiOiIyMDAifSxbInN0YXJ0cy13aXRoIiwiJHN1Y2Nlc3NfYWN0aW9uX3JlZGlyZWN0IiwiIl0sWyJzdGFydHMtd2l0aCIsIiRjb250ZW50LVR5cGUiLCJhcHBsaWNhdGlvbi9vY3RldC1zdHJlYW0iXSx7IngtYW16LXNlcnZlci1zaWRlLWVuY3J5cHRpb24iOiJBRVMyNTYifSxbImNvbnRlbnQtbGVuZ3RoLXJhbmdlIiwiMCIsIjEwNDg1NzYwMCJdLHsieC1hbXotY3JlZGVudGlhbCI6IkFTSUFUR1ZKWktNM0FPRTNOTk5YLzIwMjIwMjE4L3VzLWVhc3QtMS9zMy9hd3M0X3JlcXVlc3QvIn0seyJ4LWFtei1hbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJ4LWFtei1kYXRlIjoiMjAyMjAyMThUMDQyNTE5WiJ9LHsieC1hbXotc2VjdXJpdHktdG9rZW4iOiJJUW9KYjNKcFoybHVYMlZqRUozLy8vLy8vLy8vL3dFYUNYVnpMV1ZoYzNRdE1TSklNRVlDSVFDVU5TRHB4emdlejdnb2lva2ZWVkdUL0NrQnVtWTYzNG5ma3NEdDROclM1d0loQU9HYXlOQ3gxdHY0aEdOaXlOL1lXMVVkaHk0Z3gvaGdENzVNSTBOOFRibnNLcVFDQ09YLy8vLy8vLy8vL3dFUUF4b01Nakl3TkRjek1UVXlNekV3SWd4SmlzY2U0a1A2NzE4bUpWOHErQUZYTDhQbzYwbjJGclBYaWpqMDdiWnlIU3F6bUJRMWRCSXpoWEdmdnl0ZGM5T0NPOTliamNDTE1HUW5RZUVLQmx2VFBnaDdHNWZFeXQxSGtEVlhFejVZd3N5Z0pudzlQVnRKT3QwTE4wVTlSbU1pcFBwZEJsY3E1VjZ2Mjd1N0hHN3k1R21TMXlFQUZpdUd0clJnQmxWL0FSc2JGWVd3MVJDY0dwSTJaM29VWmNZUnYvMjFPQjR0MlQrZnpLWUFXNlZaREh2bnRNbksrZ1FxZk9jUW5GOUY5ZzZhekIwMldsRDdMcEVCRW53LzIxa3lCQTVJT2RXbk9jbTIvWW1BZ3JoUUNvYVdoTWJJMnVLc0dwZEh2MFpodTFXbUIwVy9WSGp5ajhid2tDZDRuclRyMTg5T3ZyZmlUa0o4ZStkeVlZRnV2L1hXbW1taXVqQ1Z2THlRQmpxWkFiRWNaVUJTTWo4bnVONi9nM2VqT1JYcTlubkNLeHMvc09HVlQyemdrMSt6TnBJRXRyR1NpZkJHYUVPV0VQY3l6cGR3Z3JOVTcyVmQ0bzZOTzgreDBsblNhSmFaUzdOOWs4cTVBZlQraWdnRWd0RER5VFJCTVNyNkVQMTJhUE9xRkdtYndKcGJVczlST0FtdXBiTW1pdjlEWGFuUDQ5T2lkZjlYQU1KdktYVitDR09xZ1gwVnhSa2MvY2Q3K0drUnlwSG50M0xybUlUa1BBPT0ifV19",
+											"type": "text"
+										},
+										{
+											"key": "success_action_status",
+											"value": "200",
+											"type": "text"
+										},
+										{
+											"key": "success_action_redirect",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "x-amz-signature",
+											"value": "1e143b613cbf1765514218f232a8b78aec9be20c8b9656101e16128626d511bd",
+											"type": "text"
+										},
+										{
+											"key": "x-amz-credential",
+											"value": "ASIATGVJZKM3AOE3NNNX/20220218/us-east-1/s3/aws4_request/",
+											"type": "text"
+										},
+										{
+											"key": "x-amz-algorithm",
+											"value": "AWS4-HMAC-SHA256",
+											"type": "text"
+										},
+										{
+											"key": "x-amz-date",
+											"value": "20220218T042519Z",
+											"type": "text"
+										},
+										{
+											"key": "x-amz-server-side-encryption",
+											"value": "AES256",
+											"type": "text"
+										},
+										{
+											"key": "x-amz-security-token",
+											"value": "IQoJb3JpZ2luX2VjEJ3//////////wEaCXVzLWVhc3QtMSJIMEYCIQCUNSDpxzgez7goiokfVVGT/CkBumY634nfksDt4NrS5wIhAOGayNCx1tv4hGNiyN/YW1Udhy4gx/hgD75MI0N8TbnsKqQCCOX//////////wEQAxoMMjIwNDczMTUyMzEwIgxJisce4kP6718mJV8q+AFXL8Po60n2FrPXijj07bZyHSqzmBQ1dBIzhXGfvytdc9OCO99bjcCLMGQnQeEKBlvTPgh7G5fEyt1HkDVXEz5YwsygJnw9PVtJOt0LN0U9RmMipPpdBlcq5V6v27u7HG7y5GmS1yEAFiuGtrRgBlV/ARsbFYWw1RCcGpI2Z3oUZcYRv/21OB4t2T+fzKYAW6VZDHvntMnK+gQqfOcQnF9F9g6azB02WlD7LpEBEnw/21kyBA5IOdWnOcm2/YmAgrhQCoaWhMbI2uKsGpdHv0Zhu1WmB0W/VHjyj8bwkCd4nrTr189OvrfiTkJ8e+dyYYFuv/XWmmmiujCVvLyQBjqZAbEcZUBSMj8nuN6/g3ejORXq9nnCKxs/sOGVT2zgk1+zNpIEtrGSifBGaEOWEPcyzpdwgrNU72Vd4o6NO8+x0lnSaJaZS7N9k8q5AfT+iggEgtDDyTRBMSr6EP12aPOqFGmbwJpbUs9ROAmupbMmiv9DXanP49Oidf9XAMJvKXV+CGOqgX0VxRkc/cd7+GkRypHnt3LrmITkPA==",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/home/tech/Desktop/Project/AppBundles Upload/samplePlugin.bundle.zip"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/appbundles/:id",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"appbundles",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "NamiliftActivity+beta"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create app bundle version",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"description\": \"Thumbnail generating app bundle.\",\n\t\"engine\": \"Autodesk.Inventor+23\"\n}"
+								},
+								"url": {
+									"raw": "{{FORGE_HOST}}/da/us-east/v3/appbundles/:id/versions",
+									"host": [
+										"{{FORGE_HOST}}"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"appbundles",
+										":id",
+										"versions"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "NamiliftActivity"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List app bundle versions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{FORGE_HOST}}/da/us-east/v3/appbundles/:id/versions",
+									"host": [
+										"{{FORGE_HOST}}"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"appbundles",
+										":id",
+										"versions"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "MyThumbnailAppBundle"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get app bundle version details",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOnJlYWQiLCJkYXRhOndyaXRlIiwiZGF0YTpjcmVhdGUiLCJidWNrZXQ6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJjb2RlOmFsbCJdLCJjbGllbnRfaWQiOiJCQXNCUkxpeWlhSFIxWDllWWlBSTRBVFBtZGN1WjVQZiIsImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9hand0ZXhwNjAiLCJqdGkiOiJ6UmhzMXg2RmNkdk4wMFd1eUg1Ymh5ZU9BQ0J5ZlB2cEQ4azJQNEFucGM2SEt5UVlZZGxDbnBWam1OUU1VWXFoIiwiZXhwIjoxNjQ0NjA0NjEzfQ.fbn4PHAdVgUxm2xPeWQzwVubjGH1nEF7zJmy6bIk-0r9snZ5NG9ohb5j3pglhVL_hx2MvoimJSuwfZAHfPw_xxz-eL-O278VDESUeo-I4EmU0htEI3qDKojDGUrJ_RvBx0M88qQNuOUFh_pb-qVh1Rz1wslFqcSZBxZf8JEr9BmORS9-oLP6w3Iv27_NYqialaN-nFwBytRVWUespBvVs4bi2tLT2bTjBpBEsrTrjqGpxGVCnEopqrWmIcD_cLRCTTjSahtQ6n0hyRcrOOMCjW_IlBBdcFThNR7F1RmtBBDUEvVliMDjfSL8CCxHyrZkiPtoVxN6zriFtSZagWdJJQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/appbundles/:id/versions/:version",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"appbundles",
+										":id",
+										"versions",
+										":version"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "NamiliftActivity"
+										},
+										{
+											"key": "version",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create app bundle alias",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\": \"beta\",\n\t\"version\": 1\n}"
+								},
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/appbundles/:id/aliases",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"appbundles",
+										":id",
+										"aliases"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "NamiliftActivity1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update app bundle alias",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOnJlYWQiLCJkYXRhOndyaXRlIiwiZGF0YTpjcmVhdGUiLCJidWNrZXQ6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJjb2RlOmFsbCJdLCJjbGllbnRfaWQiOiJCQXNCUkxpeWlhSFIxWDllWWlBSTRBVFBtZGN1WjVQZiIsImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9hand0ZXhwNjAiLCJqdGkiOiJaeFc2eDQ0N2NpQ2F2cjZXZExuVW1qZ2ZFNDF4VnFjVDg2cWFuc1dJUlFnTUxYU0FVOTB1dlQ1QXhpZUdCdlJxIiwiZXhwIjoxNjQ0NjQxMzYyfQ.cP07H9Ar06-7DcMCyfBt6GiY1G0dkIaNFlyj9luyfFAiNr6vfoZjte4Yd4GW9S2cpDJ8lHtq-R2YKPV0lZq3GJ7enjzYCzjMc0yLVHvUKHaAM1bPBxmyLtVEnpwiF4SHq-sBhBgLZt349lqamtkvLP7lhiaTDZRLcJGe_-vGIwZKszThwIKznSIP4du-D1fP6F0Q_dEmSVTgR9vESEnQgoZzmGnoouLC7JZI53XdKQYOhZijCln_hqRstNVHwcD5HrTuvu6nAC3xVDxgHTfF9tvsQiEGe_NUgbS92ff_kzSo1XdZsB5MBViCHT4Vj57ozlDpQ3PBjDzARKXd2dgVXw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"version\": 1\n}"
+								},
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/appbundles/:id/aliases/:alias_id",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"appbundles",
+										":id",
+										"aliases",
+										":alias_id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "NamiliftActivity"
+										},
+										{
+											"key": "alias_id",
+											"value": "beta"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List app bundle aliases",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/appbundles/:id/aliases",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"appbundles",
+										":id",
+										"aliases"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "NamiliftActivity"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get app bundle alias details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{FORGE_HOST}}/da/us-east/v3/appbundles/:id/aliases/:alias_id",
+									"host": [
+										"{{FORGE_HOST}}"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"appbundles",
+										":id",
+										"aliases",
+										":alias_id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "ThumbnailAppBundle"
+										},
+										{
+											"key": "alias_id",
+											"value": "prod"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload binaries for app bundle",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+										"key": "Content-Type",
+										"value": "multipart/form-data",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "key",
+											"value": "apps/BAsBRLiyiaHR1X9eYiAI4ATPmdcuZ5Pf/NamiliftActivity/1",
+											"type": "text"
+										},
+										{
+											"key": "policy",
+											"value": "eyJleHBpcmF0aW9uIjoiMjAyMi0wMi0xMlQwNTowNzowMC4wODY1MDYwWiIsImNvbmRpdGlvbnMiOlt7ImtleSI6ImFwcHMvQkFzQlJMaXlpYUhSMVg5ZVlpQUk0QVRQbWRjdVo1UGYvTmFtaWxpZnRBY3Rpdml0eS8xIn0seyJidWNrZXQiOiJkYXNwcm9kLXN0b3JlIn0seyJzdWNjZXNzX2FjdGlvbl9zdGF0dXMiOiIyMDAifSxbInN0YXJ0cy13aXRoIiwiJHN1Y2Nlc3NfYWN0aW9uX3JlZGlyZWN0IiwiIl0sWyJzdGFydHMtd2l0aCIsIiRjb250ZW50LVR5cGUiLCJhcHBsaWNhdGlvbi9vY3RldC1zdHJlYW0iXSx7IngtYW16LXNlcnZlci1zaWRlLWVuY3J5cHRpb24iOiJBRVMyNTYifSxbImNvbnRlbnQtbGVuZ3RoLXJhbmdlIiwiMCIsIjEwNDg1NzYwMCJdLHsieC1hbXotY3JlZGVudGlhbCI6IkFTSUFUR1ZKWktNM0ZJUjRBVEZNLzIwMjIwMjEyL3VzLWVhc3QtMS9zMy9hd3M0X3JlcXVlc3QvIn0seyJ4LWFtei1hbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJ4LWFtei1kYXRlIjoiMjAyMjAyMTJUMDQwNzAwWiJ9LHsieC1hbXotc2VjdXJpdHktdG9rZW4iOiJJUW9KYjNKcFoybHVYMlZqRUFzYUNYVnpMV1ZoYzNRdE1TSkhNRVVDSUFERWhFZE9ucHNFNDluN25TZzA4QWhva0NnejA3dEN1QXpOZFRIVW5XTkNBaUVBdFFQL2FtbDFXWEdGeGdKY2d2OXM0Vm9nZy9hd0kwdEc2Nk50VFNmNVUzOHFtd0lJVkJBREdnd3lNakEwTnpNeE5USXpNVEFpRERNd2F1Y1gzTkc2K0lUeUVDcjRBVUtpbWJiOEZoU0RSdmt5V1FwVlpNdWIwMUF1YlYraGhHRzcwVlY0b2JYdW0wT1J1T2UwM2dabzYrZFdaZTRFV3MwdXQvY0cyZ2lYU3p2aUNWNlcyY1hSeTJNaUE4VGZKWUcyQUJaODhEMUduU0RtZVk1RGNKbmE1VjZVYnZNUGZtYlA5UWhWdDhaWERyTFkvdFJsOWY3MVZXVkRFYUZiUGxtSDdnb3BTMVg2NDNHdXNjWDhMWnFYRVRxYllGSWV4ZnlQZDI1eFhCZU5mSVNsM1VLZ2hYMmRBWGEvRUxFNjEvNHNDVUJwTzh6T0V4MHd6NzhwMTJVNjh4d3lkeG02a3lzRGlocEJCMVNtOCswUGtZTTNpdk9IdnR2c3dTOVVZSjBKdEU1dkpkSEx0bk1Pd1VIZHplL04yR3BkMWQ0NGUvb1kxVSs1RUYyOE1NcTFuSkFHT3BvQmtOenkxTkV6NEk4UEFBdVVHeUVCZFNtVytkUHAzNWhGVDJZT2lZOXhVdEd1Yk1CV1o3RmFCRklVQ25nTk1HcVpmalMzS3diSGFjTUhyVW5ZQWRPQnZ5b1JlUjdWNlArYURSbExMTHVpZjZCMUlBa2JuUSs1REdjanhwaHlTNStackpNTWNTQkJ2aXVLU3Z0cE9xTjh4WStmOXF5bFVKanFyMzFNNjRCQXFxTjFvRzdKMVhoZXhOR0luRUpqRXRWUnlZeVZES2lnNGRCMCtnPT0ifV19",
+											"type": "text"
+										},
+										{
+											"key": "content-type",
+											"value": "application/octet-stream",
+											"type": "text"
+										},
+										{
+											"key": "success_action_status",
+											"value": "200",
+											"type": "text"
+										},
+										{
+											"key": "success_action_redirect",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "x-amz-signature",
+											"value": "266402d45d18e2dc2b7961cb3d0f3ccc4061acb5715becb7becf7765e8650815",
+											"type": "text"
+										},
+										{
+											"key": "x-amz-credential",
+											"value": "ASIATGVJZKM3FIR4ATFM/20220212/us-east-1/s3/aws4_request/",
+											"type": "text"
+										},
+										{
+											"key": "x-amz-algorithm",
+											"value": "AWS4-HMAC-SHA256",
+											"type": "text"
+										},
+										{
+											"key": "x-amz-date",
+											"value": "20220212T040700Z",
+											"type": "text"
+										},
+										{
+											"key": "x-amz-server-side-encryption",
+											"value": "AES256",
+											"type": "text"
+										},
+										{
+											"key": "x-amz-security-token",
+											"value": "IQoJb3JpZ2luX2VjEAsaCXVzLWVhc3QtMSJHMEUCIADEhEdOnpsE49n7nSg08AhokCgz07tCuAzNdTHUnWNCAiEAtQP/aml1WXGFxgJcgv9s4Vogg/awI0tG66NtTSf5U38qmwIIVBADGgwyMjA0NzMxNTIzMTAiDDMwaucX3NG6+ITyECr4AUKimbb8FhSDRvkyWQpVZMub01AubV+hhGG70VV4obXum0ORuOe03gZo6+dWZe4EWs0ut/cG2giXSzviCV6W2cXRy2MiA8TfJYG2ABZ88D1GnSDmeY5DcJna5V6UbvMPfmbP9QhVt8ZXDrLY/tRl9f71VWVDEaFbPlmH7gopS1X643GuscX8LZqXETqbYFIexfyPd25xXBeNfISl3UKghX2dAXa/ELE61/4sCUBpO8zOEx0wz78p12U68xwydxm6kysDihpBB1Sm8+0PkYM3ivOHvtvswS9UYJ0JtE5vJdHLtnMOwUHdze/N2Gpd1d44e/oY1U+5EF28MMq1nJAGOpoBkNzy1NEz4I8PAAuUGyEBdSmW+dPp35hFT2YOiY9xUtGubMBWZ7FaBFIUCngNMGqZfjS3KwbHacMHrUnYAdOBvyoReR7V6P+aDRlLLLuif6B1IAkbnQ+5DGcjxphyS5+ZrJMMcSBBviuKSvtpOqN8xY+f9qylUJjqr31M64BAqqN1oG7J1XhexNGInEJjEtVRyYyVDKig4dB0+g==",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/home/tech/Desktop/Project/samplePlugin.bundle.zip"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://dasprod-store.s3.amazonaws.com",
+									"protocol": "https",
+									"host": [
+										"dasprod-store",
+										"s3",
+										"amazonaws",
+										"com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AppBundles Alias",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\":\"beta\",\n    \"version\":1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/appbundles/:id/aliases",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"appbundles",
+										":id",
+										"aliases"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "NamiliftActivity"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Appbundle aliases",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOnJlYWQiLCJkYXRhOndyaXRlIiwiZGF0YTpjcmVhdGUiLCJidWNrZXQ6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJjb2RlOmFsbCJdLCJjbGllbnRfaWQiOiJCQXNCUkxpeWlhSFIxWDllWWlBSTRBVFBtZGN1WjVQZiIsImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9hand0ZXhwNjAiLCJqdGkiOiJaeFc2eDQ0N2NpQ2F2cjZXZExuVW1qZ2ZFNDF4VnFjVDg2cWFuc1dJUlFnTUxYU0FVOTB1dlQ1QXhpZUdCdlJxIiwiZXhwIjoxNjQ0NjQxMzYyfQ.cP07H9Ar06-7DcMCyfBt6GiY1G0dkIaNFlyj9luyfFAiNr6vfoZjte4Yd4GW9S2cpDJ8lHtq-R2YKPV0lZq3GJ7enjzYCzjMc0yLVHvUKHaAM1bPBxmyLtVEnpwiF4SHq-sBhBgLZt349lqamtkvLP7lhiaTDZRLcJGe_-vGIwZKszThwIKznSIP4du-D1fP6F0Q_dEmSVTgR9vESEnQgoZzmGnoouLC7JZI53XdKQYOhZijCln_hqRstNVHwcD5HrTuvu6nAC3xVDxgHTfF9tvsQiEGe_NUgbS92ff_kzSo1XdZsB5MBViCHT4Vj57ozlDpQ3PBjDzARKXd2dgVXw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/appbundles/:id/aliases/:aliasId",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"appbundles",
+										":id",
+										"aliases",
+										":aliasId"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "NamiliftActivity"
+										},
+										{
+											"key": "aliasId",
+											"value": "beta"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Appbundles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/appbundles/:id",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"appbundles",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "NamiliftActivity"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Activities",
+					"item": [
+						{
+							"name": "Create activity",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"commandLine\": [\n          \"$(engine.path)\\\\InventorCoreConsole.exe /i \\\"$(args[InventorDoc].path)\\\" /al \\\"$(appbundles[NamiliftActivity].path)\\\" \\\"$(args[InventorParams].path)\\\"\"\n        ],\n        \"parameters\": {\n          \"InventorDoc\": {\n            \"verb\": \"get\"\n          },\n          \"InventorParams\": {\n            \"localName\": \"params.json\",\n            \"verb\": \"get\"\n          },\n          \"OutputIpt\": {\n            \"localName\": \"Result.ipt\",\n            \"verb\": \"post\"\n          },\n          \"OutputIam\": {\n            \"localName\": \"Result.zip\",\n            \"verb\": \"post\"\n          },\n          \"OutputBmp\": {\n            \"localName\": \"Result.bmp\",\n            \"verb\": \"post\"\n          }\n        },\n        \"id\": \"NamiliftActivity\",\n        \"engine\": \"Autodesk.Inventor+2021\",\n        \"apps\": [\n          \"AxKpTedNAliBEA6LWLkvrMtSZBGKsKax.NamiliftActivity+beta\"\n        ],\n        \"description\": \"Human readable description of the object.\"\n      }"
+								},
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/activities",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"activities"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List all activities",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/activities",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"activities"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create activity alias",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\": \"beta\",\n\t\"version\": 1\n}"
+								},
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/activities/:id/aliases",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"activities",
+										":id",
+										"aliases"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "NamiliftActivity"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List activity aliases",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/activities/:id/aliases",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"activities",
+										":id",
+										"aliases"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "NamiliftActivity"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check Activity By ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/activities/:id/versions/:aliasId",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"activities",
+										":id",
+										"versions",
+										":aliasId"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "NamiliftActivity"
+										},
+										{
+											"key": "aliasId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Activites",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOnJlYWQiLCJkYXRhOndyaXRlIiwiZGF0YTpjcmVhdGUiLCJidWNrZXQ6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJjb2RlOmFsbCJdLCJjbGllbnRfaWQiOiJCQXNCUkxpeWlhSFIxWDllWWlBSTRBVFBtZGN1WjVQZiIsImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9hand0ZXhwNjAiLCJqdGkiOiJFU2N1ZWZWU1JENzhvSGQyS3NRQm1Kakt5a0xrbkpWeTZwRXpFaDhFRExUM0YxM1BUNVJSdUhVbHl5ZlliYURaIiwiZXhwIjoxNjQ0NjM5NzM0fQ.LYNrw42FLl_-EOkoqGhx-ANE7bAWxgkeFRYTUUJHWXkxIgzAR84JXDrFMGnx6mFBCReZmc9Ad1LjhLRw4s3D0LU-_eod-8acLjGr97-q5bLp6vUjDKm8Ps6OVqFD-SF1KTxlEp2rE5DT9mbq0Wfgkh_0wSOIPupzd6QpE0nqrin6RG2-5qtm_yMRl2Q7zi-v6GB67qnwG4CR3_rPZu51Tuq8blAFQG-7lgG5Kn0qR8_KqbAYeDyIR5jcBjqDWXu99SnwM2sIN6P2se8uhTqEx6Yf61YKv3HPrcSLFvGChjPd9DUIOMAC0f_GH8pNUD9cLfTxpcNN7fAL2Qrt2mMLRA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/activities/:id",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"activities",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "NamiliftActivity"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Work Items",
+					"item": [
+						{
+							"name": "Create work item",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n  \"activityId\": \"AxKpTedNAliBEA6LWLkvrMtSZBGKsKax.NamiliftActivity+beta\",\n  \"arguments\": {\n    \"InventorDoc\": {\n      \"url\": \"https://developer.api.autodesk.com/oss/v2/signedresources/c1e398bb-cf9a-4b4d-b0ac-d2610d064b6d?region=US\",\n      \"pathInZip\": \"MasterAssembly.iam\"\n    },\n    \"InventorParams\": {\n      \"url\": \"data:application/json,{\\\"ProjectNumber\\\":\\\"12345\\\",\\\"ProjectName\\\":\\\"8000-2016\\\",\\\"PreparedBy\\\":\\\"Nami\\\",\\\"DrawingNumber\\\":\\\"Nami\\\",\\\"CommissionNumber\\\":\\\"\\\",\\\"ElevatorDesignation\\\":\\\"\\\",\\\"ElevatorNumber\\\":\\\"\\\",\\\"Logo\\\":\\\"NamiLift\\\",\\\"LanguageOptions\\\":\\\"ENG\\\",\\\"Standard\\\":\\\"PL400\\\",\\\"NumberOfFloor\\\":2,\\\"LengthOfCar\\\":2000,\\\"WidthOfCar\\\":1100,\\\"Pits\\\":true,\\\"PitHeight\\\":50,\\\"ZoneSectionStart\\\":239,\\\"HeightAboveTopElevator\\\":0,\\\"ElectricBoxSide\\\":\\\"a\\\",\\\"ElectricBoxFloorNo\\\":\\\"0\\\",\\\"ElectricBoxDefault\\\":false,\\\"OuterRoof\\\":false,\\\"OuterRoofSide\\\":\\\"A\\\",\\\"WindowsSectionA\\\":\\\"0-0\\\",\\\"WindowsSectionB\\\":\\\"0-5000\\\",\\\"WindowsSectionC\\\":\\\"0-0\\\",\\\"WindowsSectionD\\\":\\\"0-0\\\",\\\"DefaultDoorSize\\\":false,\\\"Colorelevator\\\":\\\"RAL 9001\\\",\\\"Colordoor\\\":\\\"RAL 9001\\\",\\\"Safelinemx2\\\":false,\\\"Safelinemx2gsm\\\":false,\\\"Schoolcontrolassa\\\":false,\\\"Schoolcontrol\\\":false,\\\"Intercom\\\":false,\\\"Callsend\\\":false,\\\"Firealarmdrive\\\":false,\\\"Folderseat\\\":false,\\\"Floorvoiceannouncement\\\":false,\\\"Lsfcable\\\":false,\\\"Telephone\\\":false,\\\"Keyswitch\\\":false,\\\"Ups\\\":false,\\\"Comments\\\":\\\"-\\\",\\\"LiftHeightLevel0\\\":0,\\\"DoorSideLevel0\\\":\\\"A\\\",\\\"TypeOfDoorLevel0\\\":\\\"A1\\\",\\\"DoorHingeLevel0\\\":\\\"Right\\\",\\\"DoorSizeLevel0\\\":900,\\\"DoorHeightLevel0\\\":2000,\\\"DoorCloserLevel0\\\":true,\\\"CanopyLevel0\\\":true,\\\"CallBoxLevel0\\\":true,\\\"LiftHeightLevel1\\\":5000,\\\"DoorSideLevel1\\\":\\\"A\\\",\\\"TypeOfDoorLevel1\\\":\\\"A1\\\",\\\"DoorHingeLevel1\\\":\\\"Right\\\",\\\"DoorSizeLevel1\\\":900,\\\"DoorHeightLevel1\\\":2000,\\\"DoorCloserLevel1\\\":false,\\\"CanopyLevel1\\\":false,\\\"CallBoxLevel1\\\":false}\",\n      \"OutputPDF\": {\n                    \"url\": \"https://developer.api.autodesk.com/oss/v2/signedresources/6c1d44e7-6e02-4a79-8a36-25cf3dbfffb9?region=US\",              \n                    \"verb\": \"put\"\n                },\n      \"OutputZIP\": {\n                    \"url\": \"https://developer.api.autodesk.com/oss/v2/signedresources/0b20c2dc-cc42-484e-bfcb-21f39e15a4a3?region=US\",              \n                    \"verb\": \"put\"\n                },\n      \"OutputSVF\": {\n                    \"url\": \"https://developer.api.autodesk.com/oss/v2/signedresources/6c1d44e7-6e02-4a79-8a36-25cf3dbfffb9?region=US\",              \n                    \"verb\": \"put\"\n                },\n      \"OutputDWG\":  {\n                    \"url\": \"https://developer.api.autodesk.com/oss/v2/signedresources/6c1d44e7-6e02-4a79-8a36-25cf3dbfffb9?region=US\",              \n                    \"verb\": \"put\"\n                }\n    }\n  }\n}\n"
+								},
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/workitems",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"workitems"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get work item details",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/workitems/:id",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"workitems",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5c2ae3a5c39144df8e4fe01149a0695e"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ForgeApps",
+					"item": [
+						{
+							"name": "FrogeApp by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/forgeapps/:id",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"forgeapps",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "me"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create AppForge Nickname",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOnJlYWQiLCJkYXRhOndyaXRlIiwiZGF0YTpjcmVhdGUiLCJidWNrZXQ6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJjb2RlOmFsbCJdLCJjbGllbnRfaWQiOiJCQXNCUkxpeWlhSFIxWDllWWlBSTRBVFBtZGN1WjVQZiIsImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9hand0ZXhwNjAiLCJqdGkiOiJROXBPNjF2YUIxNEFWZlhjdDdraEYwZXRDTjNHM3p4YnJpMERtVEVMTFJ2c21nUmFRdENYMGZXZTRSNHpWZlRmIiwiZXhwIjoxNjQ0NTkyODYwfQ.OM3Oe7u7bfsAVAVWmipsuXog7FwTlwoU6ZuDHgX2-1sbYrGihqR-7V5TWQAESklilYR8-Fa4G7LyEP0Etf0uwQOH3wCgnvas3bMtzrB1QG8eL3c6HzoMpc3QGsTM_8dTX8XfoncB-MYB5Do4xvULHqmTVo5LJWkTq46I_84PLjhbFKk1Y8AZvo6LSDUPVBexrptlBIfxIcIF-bY9aQoMg_4g-rkRYFstHxVyuAXuA_HPiButN7fom3szO7iG-hZtMB0daSNbS_E3kzx7uRCJs0Akossf13a1Mh6I4BmdM44AP2RNL0Ju6fTq5mYwsQ0FasMpyvaZ7aMwxo6LO-r2Ew",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nickname\":\"BAsBRLiyiaHR1X9eYiAI4ATPmdcuZ5Pf\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/forgeapps/:id",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"forgeapps",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "BAsBRLiyiaHR1X9eYiAI4ATPmdcuZ5Pf"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOnJlYWQiLCJkYXRhOndyaXRlIiwiZGF0YTpjcmVhdGUiLCJidWNrZXQ6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJjb2RlOmFsbCJdLCJjbGllbnRfaWQiOiJCQXNCUkxpeWlhSFIxWDllWWlBSTRBVFBtZGN1WjVQZiIsImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9hand0ZXhwNjAiLCJqdGkiOiJROXBPNjF2YUIxNEFWZlhjdDdraEYwZXRDTjNHM3p4YnJpMERtVEVMTFJ2c21nUmFRdENYMGZXZTRSNHpWZlRmIiwiZXhwIjoxNjQ0NTkyODYwfQ.OM3Oe7u7bfsAVAVWmipsuXog7FwTlwoU6ZuDHgX2-1sbYrGihqR-7V5TWQAESklilYR8-Fa4G7LyEP0Etf0uwQOH3wCgnvas3bMtzrB1QG8eL3c6HzoMpc3QGsTM_8dTX8XfoncB-MYB5Do4xvULHqmTVo5LJWkTq46I_84PLjhbFKk1Y8AZvo6LSDUPVBexrptlBIfxIcIF-bY9aQoMg_4g-rkRYFstHxVyuAXuA_HPiButN7fom3szO7iG-hZtMB0daSNbS_E3kzx7uRCJs0Akossf13a1Mh6I4BmdM44AP2RNL0Ju6fTq5mYwsQ0FasMpyvaZ7aMwxo6LO-r2Ew",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://developer.api.autodesk.com/da/us-east/v3/forgeapps/:id",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"da",
+										"us-east",
+										"v3",
+										"forgeapps",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "me"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Data Management",
+			"item": [
+				{
+					"name": "/oss/v2/buckets",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOnJlYWQiLCJkYXRhOndyaXRlIiwiZGF0YTpjcmVhdGUiLCJidWNrZXQ6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJjb2RlOmFsbCJdLCJjbGllbnRfaWQiOiJBeEtwVGVkTkFsaUJFQTZMV0xrdnJNdFNaQkdLc0theCIsImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9hand0ZXhwNjAiLCJqdGkiOiJ0UmdRNlB4WXRPaWFzcnVpUXR1ZTl5Q0hSOFBSOEU4bk1jcHAxd1VOUk1DTlB4ckZtd2JkbnZZUmNvRlBGclZ2IiwiZXhwIjoxNjQ0NTIxMDMyfQ.ZxP1okzfZJqNKVCA8QhsuXjLxgJtcM-DzGqrxgdltBgz-e1LpQYkVZ-ykslqGIQ88plTl3T7ES_Z-27jMq141YG1rPAzpzZBBAqpjfH97cV_h2Ygl2kFJ8mJB4OMFiJvecNoc3eGrXJXYK161i3X-5aFnQPg90pBbWBGqBOSrhBMtOOyHP-pjR_tAHMguG5GwIr68mel6j3uyIpbI_jclXizLLsJxP9kdzVs_q_y9q1gm34Ifl9KH4lgeNymJ-Z1cZmV-NHNrd7P6lq0AEkus5bKJxl0GuZCsd1iUY6eAAydlAdWr8p7RvBJWdXQkW7fJF5hNxX4Q4Q0WR-bN8Aezg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://developer.api.autodesk.com/oss/v2/buckets/:bucketKey/objects/:objectName",
+							"protocol": "https",
+							"host": [
+								"developer",
+								"api",
+								"autodesk",
+								"com"
+							],
+							"path": [
+								"oss",
+								"v2",
+								"buckets",
+								":bucketKey",
+								"objects",
+								":objectName"
+							],
+							"variable": [
+								{
+									"key": "bucketKey",
+									"value": "axkptednalibea6lwlkvrmtszbgkskax_aoutput"
+								},
+								{
+									"key": "objectName",
+									"value": "Namilift.pdf"
+								}
+							]
+						},
+						"description": "Lists all buckets."
+					},
+					"response": []
+				},
+				{
+					"name": "/oss/v2/buckets/:bucket/objects",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOnJlYWQiLCJkYXRhOndyaXRlIiwiZGF0YTpjcmVhdGUiLCJidWNrZXQ6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJjb2RlOmFsbCJdLCJjbGllbnRfaWQiOiJCQXNCUkxpeWlhSFIxWDllWWlBSTRBVFBtZGN1WjVQZiIsImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9hand0ZXhwNjAiLCJqdGkiOiJpQVppMXI2SXJaMzhCNzVxVk9xeEZiRHluMHlNcEZTMTVRVzB6MTJCUmh0Y0lobVY4Sk1pWkpKQTBSSUhzTk0yIiwiZXhwIjoxNjQ0NjQ3Nzk5fQ.QCy1h2Q-uIP3b4i9Qi0QB4pwwlI88nSLL0eYKXDpqHIVZkzqLOuJ8eqXuqcq2Itike-xU55ELEQ9476QJWpnw3ZnitBxgwMDTCo5U9d3aCCipH9rs34jf1eL5Fe5Y6FUsasps8PoKVnuXlB_7334G3J0fLxlf4NgBQo6wlzlXUnumxZ72SyUkvhXxGyl62K-9UFvTYrbZsAm7P3jRlxPkYaQ11G_7GZoXvuUmb8e69GNisTuCUnzqtKO2bEVDkHxkgQNl_SooHyW0V4CrmUPryG9WNlHtIqOq1mMwcQC1Y1p_tjN8m4Ii7oPtcL4dNmKQJ0x6yIAuHbrMe3MVs7uLA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://developer.api.autodesk.com/oss/v2/buckets/:bucketKey/objects?limit=32",
+							"protocol": "https",
+							"host": [
+								"developer",
+								"api",
+								"autodesk",
+								"com"
+							],
+							"path": [
+								"oss",
+								"v2",
+								"buckets",
+								":bucketKey",
+								"objects"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "32"
+								}
+							],
+							"variable": [
+								{
+									"key": "bucketKey",
+									"value": "basbrliyiahr1x9eyiai4atpmdcuz5pf_aoutput"
+								}
+							]
+						},
+						"description": "Lists all objects in given bucket."
+					},
+					"response": []
+				},
+				{
+					"name": "/oss/v2/buckets",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bucketKey\":\"petrbroz-bim360-samples\",\n    \"policyKey\":\"persistent\"\n}"
+						},
+						"url": {
+							"raw": "{{FORGE_HOST}}/oss/v2/buckets",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"oss",
+								"v2",
+								"buckets"
+							]
+						},
+						"description": "Creates a new bucket."
+					},
+					"response": []
+				},
+				{
+					"name": "/oss/v2/buckets/:bucket/objects/:object",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": "/home/tech/Desktop/Project/Backend/Download/MasterDownload.zip"
+							}
+						},
+						"url": {
+							"raw": "{{FORGE_HOST}}/oss/v2/buckets/:bucket/objects/:object",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"oss",
+								"v2",
+								"buckets",
+								":bucket",
+								"objects",
+								":object"
+							],
+							"variable": [
+								{
+									"key": "bucket",
+									"value": "axkptednalibea6lwlkvrmtszbgkskax_aoutput"
+								},
+								{
+									"key": "object",
+									"value": "MasterDownload.zip"
+								}
+							]
+						},
+						"description": "Uploads a file as a new object in given bucket."
+					},
+					"response": []
+				},
+				{
+					"name": "/oss/v2/buckets/:bucket/objects/:object",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "{{FORGE_HOST}}/oss/v2/buckets/:bucket/objects/:object",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"oss",
+								"v2",
+								"buckets",
+								":bucket",
+								"objects",
+								":object"
+							],
+							"variable": [
+								{
+									"key": "bucket",
+									"value": "{{BUCKET}}"
+								},
+								{
+									"key": "object",
+									"value": "problematic.rvt"
+								}
+							]
+						},
+						"description": "Uploads a file as a new object in given bucket."
+					},
+					"response": []
+				},
+				{
+					"name": "/oss/v2/buckets/:bucketKey/objects/:objectKey/signed",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{FORGE_HOST}}/oss/v2/buckets/:bucketKey/objects/:objectKey/signed?access=readwrite",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"oss",
+								"v2",
+								"buckets",
+								":bucketKey",
+								"objects",
+								":objectKey",
+								"signed"
+							],
+							"query": [
+								{
+									"key": "access",
+									"value": "readwrite"
+								}
+							],
+							"variable": [
+								{
+									"key": "bucketKey",
+									"value": "{{BUCKET}}"
+								},
+								{
+									"key": "objectKey",
+									"value": "clutch_gear_20t.png"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Model Derivatives",
+			"item": [
+				{
+					"name": "/modelderivative/v2/designdata/job",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"input\": {\n\t\t\"urn\":\"dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YXhrcHRlZG5hbGliZWE2bHdsa3ZybXRzemJna3NrYXhfYW91dHB1dC9NYXN0ZXJEb3dubG9hZC56aXA\",\n\t\t\"compressedUrn\": true,\n\t\t\"rootFilename\": \"Workspace/_Jet Engine Model.iam\"\n\t},\n\t\"output\": {\n\t\t\"formats\": [\n\t\t\t{\n\t\t\t\t\"type\": \"svf\",\n\t\t\t\t\"views\": [\n\t\t\t\t\t\"2d\",\n\t\t\t\t\t\"3d\"\n\t\t\t\t]\n            }\n        ]\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{FORGE_HOST}}/modelderivative/v2/designdata/job",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"modelderivative",
+								"v2",
+								"designdata",
+								"job"
+							]
+						},
+						"description": "Submitting an SVF translation job."
+					},
+					"response": []
+				},
+				{
+					"name": "/modelderivative/v2/designdata/:urn/manifest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{FORGE_HOST}}/modelderivative/v2/designdata/:urn/manifest",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"modelderivative",
+								"v2",
+								"designdata",
+								":urn",
+								"manifest"
+							],
+							"variable": [
+								{
+									"key": "urn",
+									"value": "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YXhrcHRlZG5hbGliZWE2bHdsa3ZybXRzemJna3NrYXhfYW91dHB1dC9NYXN0ZXJEb3dubG9hZC56aXA"
+								}
+							]
+						},
+						"description": "Retrieves manifest of given object."
+					},
+					"response": []
+				},
+				{
+					"name": "/modelderivative/v2/designdata/:urn/thumbnail",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{FORGE_HOST}}/modelderivative/v2/designdata/:urn/thumbnail",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"modelderivative",
+								"v2",
+								"designdata",
+								":urn",
+								"thumbnail"
+							],
+							"variable": [
+								{
+									"key": "urn",
+									"value": "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6cGV0cmJyb3otZGF0YXNhbXBsZXMvYXBwbGUucnZ0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/modelderivative/v2/designdata/:urn/metadata",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{FORGE_HOST}}/modelderivative/v2/designdata/:urn/metadata",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"modelderivative",
+								"v2",
+								"designdata",
+								":urn",
+								"metadata"
+							],
+							"variable": [
+								{
+									"key": "urn",
+									"value": "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6cGV0cmJyb3otZGF0YXNhbXBsZXMvQ1A1NiUyMFdFU1QlMjBBRkUlMjBTT1JURVIlMjBMMS4xLmR3Zw=="
+								}
+							]
+						},
+						"description": "Retrieves metadata of a given object."
+					},
+					"response": []
+				},
+				{
+					"name": "/modelderivative/v2/designdata/:urn/metadata/:guid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{FORGE_HOST}}/modelderivative/v2/designdata/:urn/metadata/:guid",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"modelderivative",
+								"v2",
+								"designdata",
+								":urn",
+								"metadata",
+								":guid"
+							],
+							"variable": [
+								{
+									"key": "urn",
+									"value": "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YWRzay1wZXRyYnJvei1idWNrZXQvdHRlc3QucnZ0"
+								},
+								{
+									"key": "guid",
+									"value": "c3ed66e5-b5b6-4fd6-88f7-543bc24b6b83"
+								}
+							]
+						},
+						"description": "Retrieves metadata of a given object."
+					},
+					"response": []
+				},
+				{
+					"name": "/modelderivative/v2/designdata/:urn/metadata/:guid/properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{FORGE_HOST}}/modelderivative/v2/designdata/:urn/metadata/:guid/properties",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"modelderivative",
+								"v2",
+								"designdata",
+								":urn",
+								"metadata",
+								":guid",
+								"properties"
+							],
+							"variable": [
+								{
+									"key": "urn",
+									"value": "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6cGV0cmJyb3otZGF0YXNhbXBsZXMvQ1A1NiUyMFdFU1QlMjBBRkUlMjBTT1JURVIlMjBMMS4xLmR3Zw=="
+								},
+								{
+									"key": "guid",
+									"value": "e30bd031-d13a-a976-9153-78100829986a"
+								}
+							]
+						},
+						"description": "Retrieves properties of a specific GUID in design data."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Formats",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://developer.api.autodesk.com/modelderivative/v2/designdata/formats",
+							"protocol": "https",
+							"host": [
+								"developer",
+								"api",
+								"autodesk",
+								"com"
+							],
+							"path": [
+								"modelderivative",
+								"v2",
+								"designdata",
+								"formats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Details Format",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "If-Modified-Since",
+								"value": "new Date().now",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://developer.api.autodesk.com/modelderivative/v2/designdata/formats",
+							"protocol": "https",
+							"host": [
+								"developer",
+								"api",
+								"autodesk",
+								"com"
+							],
+							"path": [
+								"modelderivative",
+								"v2",
+								"designdata",
+								"formats"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "BIM 360",
+			"item": [
+				{
+					"name": "/project/v1/hubs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{FORGE_HOST}}/project/v1/hubs",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"project",
+								"v1",
+								"hubs"
+							]
+						},
+						"description": "Lists all buckets."
+					},
+					"response": []
+				},
+				{
+					"name": "/project/v1/hubs/:hub/projects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{FORGE_HOST}}/project/v1/hubs/:hub/projects",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"project",
+								"v1",
+								"hubs",
+								":hub",
+								"projects"
+							],
+							"variable": [
+								{
+									"key": "hub",
+									"value": "b.c464631d-2a3e-4738-8e10-800a1152f7d6"
+								}
+							]
+						},
+						"description": "Lists all buckets."
+					},
+					"response": []
+				},
+				{
+					"name": "/project/v1/hubs/:hub/projects/:project/topFolders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{FORGE_HOST}}/project/v1/hubs/:hub/projects/:project/topFolders",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"project",
+								"v1",
+								"hubs",
+								":hub",
+								"projects",
+								":project",
+								"topFolders"
+							],
+							"variable": [
+								{
+									"key": "hub",
+									"value": "b.c464631d-2a3e-4738-8e10-800a1152f7d6"
+								},
+								{
+									"key": "project",
+									"value": "b.332f0cb3-1980-4cc2-9679-984d34603203"
+								}
+							]
+						},
+						"description": "Lists all buckets."
+					},
+					"response": []
+				},
+				{
+					"name": "/data/v1/projects/:project/folders/:folder/contents",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{FORGE_HOST}}/data/v1/projects/:project/folders/:folder/contents",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"data",
+								"v1",
+								"projects",
+								":project",
+								"folders",
+								":folder",
+								"contents"
+							],
+							"variable": [
+								{
+									"key": "project",
+									"value": "b.332f0cb3-1980-4cc2-9679-984d34603203"
+								},
+								{
+									"key": "folder",
+									"value": "urn:adsk.wipprod:fs.folder:co.Q8e-5zI7Saup5HdsFUbxmA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/data/v1/projects/:project/items/:item/tip",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{FORGE_HOST}}/data/v1/projects/:project/items/:item/tip",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"data",
+								"v1",
+								"projects",
+								":project",
+								"items",
+								":item",
+								"tip"
+							],
+							"variable": [
+								{
+									"key": "project",
+									"value": "b.332f0cb3-1980-4cc2-9679-984d34603203"
+								},
+								{
+									"key": "item",
+									"value": "urn:adsk.wipprod:dm.lineage:EN3XOY8MTLmiUjzm3IQ5tw"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/data/v1/projects/:project/storage",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n      \"jsonapi\": { \"version\": \"1.0\" },\n      \"data\": {\n        \"type\": \"objects\",\n        \"attributes\": {\n          \"name\": \"test.rvt\"\n        },\n        \"relationships\": {\n          \"target\": {\n            \"data\": { \"type\": \"folders\", \"id\": \"urn:adsk.wipprod:fs.folder:co.zo9tiVUsSXSdHrtpmIVcJw\" }\n          }\n        }\n      }\n}"
+						},
+						"url": {
+							"raw": "{{FORGE_HOST}}/data/v1/projects/:project/storage",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"data",
+								"v1",
+								"projects",
+								":project",
+								"storage"
+							],
+							"variable": [
+								{
+									"key": "project",
+									"value": "a.cGVyc29uYWw6dWUyZGI1Y2JmIzIwMTgwODMwMTQ2MjI3MDgx"
+								}
+							]
+						},
+						"description": "Lists all buckets."
+					},
+					"response": []
+				},
+				{
+					"name": "/oss/v2/buckets/:bucket/objects/:object",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": "{\n      \"jsonapi\": { \"version\": \"1.0\" },\n      \"data\": {\n        \"type\": \"objects\",\n        \"attributes\": {\n          \"name\": \"basic.rvt\"\n        },\n        \"relationships\": {\n          \"target\": {\n            \"data\": { \"type\": \"folders\", \"id\": \"urn:adsk.wipprod:fs.folder:co.zo9tiVUsSXSdHrtpmIVcJw\" }\n          }\n        }\n      }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{FORGE_HOST}}/oss/v2/buckets/:bucket/objects/:object",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"oss",
+								"v2",
+								"buckets",
+								":bucket",
+								"objects",
+								":object"
+							],
+							"variable": [
+								{
+									"key": "bucket",
+									"value": "wip.dm.prod"
+								},
+								{
+									"key": "object",
+									"value": "667a3065-93ec-4e58-a1c5-b6ddfa5bc344.rvt"
+								}
+							]
+						},
+						"description": "Lists all buckets."
+					},
+					"response": []
+				},
+				{
+					"name": "/data/v1/projects/:project/items",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonapi\": { \"version\": \"1.0\" },\n    \"data\": {\n      \"type\": \"items\",\n      \"attributes\": {\n        \"displayName\": \"basic.rvt\",\n        \"extension\": {\n          \"type\": \"items:autodesk.bim360:File\",\n          \"version\": \"1.0\"\n        }\n      },\n      \"relationships\": {\n        \"tip\": {\n          \"data\": {\n            \"type\": \"versions\", \"id\": \"1\"\n          }\n        },\n        \"parent\": {\n          \"data\": {\n            \"type\": \"folders\",\n            \"id\": \"urn:adsk.wipprod:fs.folder:co.zo9tiVUsSXSdHrtpmIVcJw\"\n          }\n        }\n      }\n    },\n    \"included\": [\n      {\n        \"type\": \"versions\",\n        \"id\": \"1\",\n        \"attributes\": {\n          \"name\": \"basic.rvt\",\n          \"extension\": {\n            \"type\": \"versions:autodesk.bim360:File\",\n            \"version\": \"1.0\"\n          }\n        },\n        \"relationships\": {\n          \"storage\": {\n            \"data\": {\n              \"type\": \"objects\",\n              \"id\": \"urn:adsk.objects:os.object:wip.dm.prod/ecd58956-743f-409e-a9b8-12bf29213563.rvt\"\n            }\n          }\n        }\n      }\n    ]\n  }"
+						},
+						"url": {
+							"raw": "{{FORGE_HOST}}/data/v1/projects/:project/items",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"data",
+								"v1",
+								"projects",
+								":project",
+								"items"
+							],
+							"variable": [
+								{
+									"key": "project",
+									"value": "a.cGVyc29uYWw6dWUyZGI1Y2JmIzIwMTgwODMwMTQ2MjI3MDgx"
+								}
+							]
+						},
+						"description": "Lists all buckets."
+					},
+					"response": []
+				},
+				{
+					"name": "/hq/v1/accounts/:account/projects",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJjbGllbnRfaWQiOiJ5VDREdE8zYUZiQnJLUDFubEVxdm5iZEJ2TldzdHpKbCIsImV4cCI6MTU0MzkzNzgxOCwic2NvcGUiOlsiYWNjb3VudDpyZWFkIl0sImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9qd3RleHA2MCIsImp0aSI6InUyeHB1TjBEenloTGJJSmhUWmlJNThBWGJMN3JFMXE1SlNoTlhUSE00Z00yVHlYRHRGS05CMGF4dURHYm40azQifQ.vX7AC4Rgz0vAEu9SSX_nfCCcs7XoOdLQuqaRqG6JPjw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{FORGE_HOST}}/hq/v1/accounts/:account/projects",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"hq",
+								"v1",
+								"accounts",
+								":account",
+								"projects"
+							],
+							"variable": [
+								{
+									"key": "account",
+									"value": "{{BIM360_ACCOUNT_ID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/hq/v1/accounts/:account/projects/:project",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJjbGllbnRfaWQiOiJ5VDREdE8zYUZiQnJLUDFubEVxdm5iZEJ2TldzdHpKbCIsImV4cCI6MTU0MzkzNzgxOCwic2NvcGUiOlsiYWNjb3VudDpyZWFkIl0sImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9qd3RleHA2MCIsImp0aSI6InUyeHB1TjBEenloTGJJSmhUWmlJNThBWGJMN3JFMXE1SlNoTlhUSE00Z00yVHlYRHRGS05CMGF4dURHYm40azQifQ.vX7AC4Rgz0vAEu9SSX_nfCCcs7XoOdLQuqaRqG6JPjw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{FORGE_HOST}}/hq/v1/accounts/:account/projects/:project",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"hq",
+								"v1",
+								"accounts",
+								":account",
+								"projects",
+								":project"
+							],
+							"variable": [
+								{
+									"key": "account",
+									"value": "{{BIM360_ACCOUNT_ID}}"
+								},
+								{
+									"key": "project",
+									"value": "332f0cb3-1980-4cc2-9679-984d34603203"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/issues/v1/containers/:container/quality-issues",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{FORGE_HOST}}/issues/v1/containers/:container/quality-issues",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"issues",
+								"v1",
+								"containers",
+								":container",
+								"quality-issues"
+							],
+							"variable": [
+								{
+									"key": "container",
+									"value": "48f0d895-40f4-4aab-bd63-6a040e980e96"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "oauth2",
+				"oauth2": [
+					{
+						"key": "accessToken",
+						"value": "eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJ1c2VyaWQiOiJHNVBDSkczNVU5OEoiLCJleHAiOjE1NDgwNjYxNTIsInNjb3BlIjpbImRhdGE6Y3JlYXRlIiwiZGF0YTp3cml0ZSIsImRhdGE6cmVhZCIsImJ1Y2tldDpyZWFkIiwiYnVja2V0OmNyZWF0ZSIsImNvZGU6YWxsIiwiYWNjb3VudDpyZWFkIiwidmlld2FibGVzOnJlYWQiXSwiY2xpZW50X2lkIjoieVQ0RHRPM2FGYkJyS1AxbmxFcXZuYmRCdk5Xc3R6SmwiLCJncmFudF9pZCI6Im9oQjROaVp3bmpaWFN4bkVMb0t0M3pqemd1bTdpUTg2IiwiYXVkIjoiaHR0cHM6Ly9hdXRvZGVzay5jb20vYXVkL2p3dGV4cDYwIiwianRpIjoibVdIandXdjNzTFNLeUczTk1ZbnEwb3JYMlczWVZIeXhUZVFpenpCNkNkaE9LZ0U2dTVqcWhndVpUZjdjSUQwSiJ9._TfaRl_XLd2uCifdCPShkY3x7MbLWAF0LaSagKdFLDk",
+						"type": "string"
+					},
+					{
+						"key": "tokenType",
+						"value": "Bearer",
+						"type": "string"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Search Indexing",
+			"item": [
+				{
+					"name": "/indexing/v1",
+					"request": {
+						"auth": {
+							"type": "oauth1",
+							"oauth1": [
+								{
+									"key": "signatureMethod",
+									"value": "HMAC-SHA1",
+									"type": "string"
+								},
+								{
+									"key": "version",
+									"value": "1.0",
+									"type": "string"
+								},
+								{
+									"key": "addParamsToHeader",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "addEmptyParamsToSign",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"documents\": [\n        {\n            \"item\": {\n                \"sourceId\": {\n                    \"sourceSystem\": \"exampleDataRoot\",\n                    \"id\": \"id200\",\n                    \"type\": \"fs.file\"\n                },\n                \"securityInfo\": {\n                    \"securityType\": \"open\"\n                },\n                \"sourceVersion\": \"1\",\n                \"creator\": {\n                    \"userIdValue\": \"uid2\",\n                    \"userIdType\": \"adsk.oxygen\"\n                },\n                \"lastModifier\": {\n                    \"userIdValue\": \"uid3\",\n                    \"userIdType\": \"adsk.oxygen\"\n                },\n                \"dateCreated\": \"2012-01-01T12:31:12\",\n                \"dateModified\": \"2012-02-02T13:15:15\",\n                \"content\": {\n                    \"textContent\": \"the quick brown fox jumps over the lazy dogs\",\n                    \"name\": \"first example13 name\"\n                }\n            }\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{FORGE_HOST}}/indexing/v1",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"indexing",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/indexing/v1/status/:doc",
+					"request": {
+						"auth": {
+							"type": "oauth1",
+							"oauth1": [
+								{
+									"key": "signatureMethod",
+									"value": "HMAC-SHA1",
+									"type": "string"
+								},
+								{
+									"key": "version",
+									"value": "1.0",
+									"type": "string"
+								},
+								{
+									"key": "addParamsToHeader",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "addEmptyParamsToSign",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{FORGE_HOST}}/indexing/v1/status/:doc",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"indexing",
+								"v1",
+								"status",
+								":doc"
+							],
+							"variable": [
+								{
+									"key": "doc",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Schema",
+			"item": [
+				{
+					"name": "/schema/v1/namespaces",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{FORGE_HOST}}/schema/v1/namespaces",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"schema",
+								"v1",
+								"namespaces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/schema/v1/namespaces",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"data\": {\n\t\t\"relationships\": {\n\t\t\t\"companies\": {\n\t\t\t\t\"data\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"type\": \"companies\",\n\t\t\t\t\t\t\"id\": \"autodesk\"\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t}\n\t\t},\n\t\t\"type\": \"namespaces\",\n\t\t\"attributes\": {\n\t\t\t\"name\": \"petrbrozns\"\n\t\t}\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{FORGE_HOST}}/schema/v1/namespaces",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"schema",
+								"v1",
+								"namespaces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/schema/v1/namespaces/:namespace",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"data\": {\n\t\t\"type\": \"namespaces\",\n\t\t\"attributes\": {\n\t\t\t\"id\": \"{{namespace}}\",\n            \"permissions\": [{\n                \"role\": \"NAMESPACE_ADMIN\",\n                \"subjects\": {\n                    \"o2Users\": [\"oxygen_id_1\",\"oxygen_id_2\"]\n                }\n            }]\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{FORGE_HOST}}/schema/v1/namespaces/:namespace",
+							"host": [
+								"{{FORGE_HOST}}"
+							],
+							"path": [
+								"schema",
+								"v1",
+								"namespaces",
+								":namespace"
+							],
+							"variable": [
+								{
+									"key": "namespace",
+									"value": "petrbroz"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "OSS",
+			"item": [
+				{
+					"name": "Buckets",
+					"item": [
+						{
+							"name": "List Buckets",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://developer.api.autodesk.com/oss/v2/buckets",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"oss",
+										"v2",
+										"buckets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Bucket",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"bucketKey\":\"axkptednalibea6lwlkvrmtszbgkskax_ainput\",\n    \"policyKey\":\"transient\"\n  }"
+								},
+								"url": {
+									"raw": "https://developer.api.autodesk.com/oss/v2/buckets",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"oss",
+										"v2",
+										"buckets"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Objects",
+					"item": [
+						{
+							"name": "List Object of Bucket",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://developer.api.autodesk.com/oss/v2/buckets/:bucketKey/objects?limit=32",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"oss",
+										"v2",
+										"buckets",
+										":bucketKey",
+										"objects"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "32"
+										}
+									],
+									"variable": [
+										{
+											"key": "bucketKey",
+											"value": "axkptednalibea6lwlkvrmtszbgkskax_aoutput"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Object",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"postman.setNextRequest(\"Get Formats\")"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ACCESS_TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://developer.api.autodesk.com/oss/v2/buckets/:bucketKey/objects/MasterAssembly.zip",
+									"protocol": "https",
+									"host": [
+										"developer",
+										"api",
+										"autodesk",
+										"com"
+									],
+									"path": [
+										"oss",
+										"v2",
+										"buckets",
+										":bucketKey",
+										"objects",
+										"MasterAssembly.zip"
+									],
+									"variable": [
+										{
+											"key": "bucketKey",
+											"value": "axkptednalibea6lwlkvrmtszbgkskax_ainput"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "https://dasprod-store.s3.amazonaws.com ",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "key",
+							"value": "apps/AxKpTedNAliBEA6LWLkvrMtSZBGKsKax/NamiliftActivity/1",
+							"type": "text"
+						},
+						{
+							"key": "content-type",
+							"value": "application/octet-stream",
+							"type": "text"
+						},
+						{
+							"key": "policy",
+							"value": "eyJleHBpcmF0aW9uIjoiMjAyMi0wMi0xOFQwNToyNToxOS4yMDgyNDkxWiIsImNvbmRpdGlvbnMiOlt7ImtleSI6ImFwcHMvQXhLcFRlZE5BbGlCRUE2TFdMa3ZyTXRTWkJHS3NLYXgvTmFtaWxpZnRBY3Rpdml0eS8xIn0seyJidWNrZXQiOiJkYXNwcm9kLXN0b3JlIn0seyJzdWNjZXNzX2FjdGlvbl9zdGF0dXMiOiIyMDAifSxbInN0YXJ0cy13aXRoIiwiJHN1Y2Nlc3NfYWN0aW9uX3JlZGlyZWN0IiwiIl0sWyJzdGFydHMtd2l0aCIsIiRjb250ZW50LVR5cGUiLCJhcHBsaWNhdGlvbi9vY3RldC1zdHJlYW0iXSx7IngtYW16LXNlcnZlci1zaWRlLWVuY3J5cHRpb24iOiJBRVMyNTYifSxbImNvbnRlbnQtbGVuZ3RoLXJhbmdlIiwiMCIsIjEwNDg1NzYwMCJdLHsieC1hbXotY3JlZGVudGlhbCI6IkFTSUFUR1ZKWktNM0FPRTNOTk5YLzIwMjIwMjE4L3VzLWVhc3QtMS9zMy9hd3M0X3JlcXVlc3QvIn0seyJ4LWFtei1hbGdvcml0aG0iOiJBV1M0LUhNQUMtU0hBMjU2In0seyJ4LWFtei1kYXRlIjoiMjAyMjAyMThUMDQyNTE5WiJ9LHsieC1hbXotc2VjdXJpdHktdG9rZW4iOiJJUW9KYjNKcFoybHVYMlZqRUozLy8vLy8vLy8vL3dFYUNYVnpMV1ZoYzNRdE1TSklNRVlDSVFDVU5TRHB4emdlejdnb2lva2ZWVkdUL0NrQnVtWTYzNG5ma3NEdDROclM1d0loQU9HYXlOQ3gxdHY0aEdOaXlOL1lXMVVkaHk0Z3gvaGdENzVNSTBOOFRibnNLcVFDQ09YLy8vLy8vLy8vL3dFUUF4b01Nakl3TkRjek1UVXlNekV3SWd4SmlzY2U0a1A2NzE4bUpWOHErQUZYTDhQbzYwbjJGclBYaWpqMDdiWnlIU3F6bUJRMWRCSXpoWEdmdnl0ZGM5T0NPOTliamNDTE1HUW5RZUVLQmx2VFBnaDdHNWZFeXQxSGtEVlhFejVZd3N5Z0pudzlQVnRKT3QwTE4wVTlSbU1pcFBwZEJsY3E1VjZ2Mjd1N0hHN3k1R21TMXlFQUZpdUd0clJnQmxWL0FSc2JGWVd3MVJDY0dwSTJaM29VWmNZUnYvMjFPQjR0MlQrZnpLWUFXNlZaREh2bnRNbksrZ1FxZk9jUW5GOUY5ZzZhekIwMldsRDdMcEVCRW53LzIxa3lCQTVJT2RXbk9jbTIvWW1BZ3JoUUNvYVdoTWJJMnVLc0dwZEh2MFpodTFXbUIwVy9WSGp5ajhid2tDZDRuclRyMTg5T3ZyZmlUa0o4ZStkeVlZRnV2L1hXbW1taXVqQ1Z2THlRQmpxWkFiRWNaVUJTTWo4bnVONi9nM2VqT1JYcTlubkNLeHMvc09HVlQyemdrMSt6TnBJRXRyR1NpZkJHYUVPV0VQY3l6cGR3Z3JOVTcyVmQ0bzZOTzgreDBsblNhSmFaUzdOOWs4cTVBZlQraWdnRWd0RER5VFJCTVNyNkVQMTJhUE9xRkdtYndKcGJVczlST0FtdXBiTW1pdjlEWGFuUDQ5T2lkZjlYQU1KdktYVitDR09xZ1gwVnhSa2MvY2Q3K0drUnlwSG50M0xybUlUa1BBPT0ifV19",
+							"type": "text"
+						},
+						{
+							"key": "success_action_status",
+							"value": "200",
+							"type": "text"
+						},
+						{
+							"key": "success_action_redirect",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "x-amz-signature",
+							"value": "1e143b613cbf1765514218f232a8b78aec9be20c8b9656101e16128626d511bd",
+							"type": "text"
+						},
+						{
+							"key": "x-amz-credential",
+							"value": "ASIATGVJZKM3AOE3NNNX/20220218/us-east-1/s3/aws4_request/",
+							"type": "text"
+						},
+						{
+							"key": "x-amz-algorithm",
+							"value": "AWS4-HMAC-SHA256",
+							"type": "text"
+						},
+						{
+							"key": "x-amz-date",
+							"value": "20220218T042519Z",
+							"type": "text"
+						},
+						{
+							"key": "x-amz-server-side-encryption",
+							"value": "AES256",
+							"type": "text"
+						},
+						{
+							"key": "x-amz-security-token",
+							"value": "IQoJb3JpZ2luX2VjEJ3//////////wEaCXVzLWVhc3QtMSJIMEYCIQCUNSDpxzgez7goiokfVVGT/CkBumY634nfksDt4NrS5wIhAOGayNCx1tv4hGNiyN/YW1Udhy4gx/hgD75MI0N8TbnsKqQCCOX//////////wEQAxoMMjIwNDczMTUyMzEwIgxJisce4kP6718mJV8q+AFXL8Po60n2FrPXijj07bZyHSqzmBQ1dBIzhXGfvytdc9OCO99bjcCLMGQnQeEKBlvTPgh7G5fEyt1HkDVXEz5YwsygJnw9PVtJOt0LN0U9RmMipPpdBlcq5V6v27u7HG7y5GmS1yEAFiuGtrRgBlV/ARsbFYWw1RCcGpI2Z3oUZcYRv/21OB4t2T+fzKYAW6VZDHvntMnK+gQqfOcQnF9F9g6azB02WlD7LpEBEnw/21kyBA5IOdWnOcm2/YmAgrhQCoaWhMbI2uKsGpdHv0Zhu1WmB0W/VHjyj8bwkCd4nrTr189OvrfiTkJ8e+dyYYFuv/XWmmmiujCVvLyQBjqZAbEcZUBSMj8nuN6/g3ejORXq9nnCKxs/sOGVT2zgk1+zNpIEtrGSifBGaEOWEPcyzpdwgrNU72Vd4o6NO8+x0lnSaJaZS7N9k8q5AfT+iggEgtDDyTRBMSr6EP12aPOqFGmbwJpbUs9ROAmupbMmiv9DXanP49Oidf9XAMJvKXV+CGOqgX0VxRkc/cd7+GkRypHnt3LrmITkPA==",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/tech/Desktop/Project/AppBundles Upload/samplePlugin.bundle.zip"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://dasprod-store.s3.amazonaws.com",
+					"protocol": "https",
+					"host": [
+						"dasprod-store",
+						"s3",
+						"amazonaws",
+						"com"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const token = pm.environment.get('ACCESS_TOKEN');",
+					"const expires = pm.environment.get('TOKEN_EXPIRES_AT');",
+					"",
+					"if (token && expires > (new Date()).getTime()) {",
+					"    console.log('Found valid token.');",
+					"} else {",
+					"    const options = {",
+					"        url: pm.environment.get('FORGE_HOST') + '/authentication/v1/authenticate',",
+					"        method: 'POST',",
+					"        header: {",
+					"            'Accept': 'application/json',",
+					"            'Content-Type': 'application/x-www-form-urlencoded'",
+					"        },",
+					"        body: {",
+					"            mode: 'urlencoded',",
+					"            urlencoded: [",
+					"                {",
+					"                    key: \"grant_type\",",
+					"                    value: \"client_credentials\",",
+					"                    disabled: false",
+					"                },",
+					"                {",
+					"                    key: \"client_id\",",
+					"                    value: pm.environment.get(\"FORGE_CLIENT_ID\"),",
+					"                    disabled: false",
+					"                },",
+					"                {",
+					"                    key: \"client_secret\",",
+					"                    value: pm.environment.get(\"FORGE_CLIENT_SECRET\"),",
+					"                    disabled: false",
+					"                },",
+					"                {",
+					"                    key: \"scope\",",
+					"                    value: pm.environment.get(\"FORGE_SCOPES\"),",
+					"                    disabled: false",
+					"                }",
+					"            ]",
+					"        }",
+					"    };",
+					"    pm.sendRequest(options, function(err, res) {",
+					"        if (err) {",
+					"            console.error(err);",
+					"        } else {",
+					"            console.log('Updating token and expiration time.');",
+					"            const resp = res.json();",
+					"            console.log('Response', resp);",
+					"            pm.environment.set('ACCESS_TOKEN', resp.access_token);",
+					"            const expiry = new Date();",
+					"            expiry.setSeconds(expiry.getSeconds() + resp.expires_in);",
+					"            pm.environment.set('TOKEN_EXPIRES_AT', expiry.getTime());",
+					"        }",
+					"    });",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ACCESS_TOKEN",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN_EXPIRES_AT",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

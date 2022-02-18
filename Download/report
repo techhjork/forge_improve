@@ -1,0 +1,207 @@
+[02/18/2022 09:13:28] Job information:
+"CommandLine":[
+  "$(engine.path)\\InventorCoreConsole.exe /i \"$(args[InventorDoc].path)\" /al \"$(appbundles[NamiliftActivity].path)\" \"$(args[InventorParams].path)\""
+]
+"Settings":{
+  "dasreportfaileduploadoptional": {
+    "value": "true",
+    "isEnvironmentVariable": true
+  }
+}
+"Id":"4bd23f9b12584f0c9c1b4d0145966842"
+"ActivityId":"AxKpTedNAliBEA6LWLkvrMtSZBGKsKax.NamiliftActivity+beta"
+"Engine.Id":"Autodesk.Inventor_2021!26"
+"Apps": [
+"App.Id":"AxKpTedNAliBEA6LWLkvrMtSZBGKsKax.NamiliftActivity!1"
+]
+"BoundArguments":{
+  "InventorDoc": {
+    "pathInZip": "MasterAssembly.iam",
+    "url": "https://developer.api.autodesk.com/Masked:HCkwYjytzdkc+WXA5Cr87xsY+OQ="
+  },
+  "InventorParams": {
+    "localName": "params.json",
+    "url": "data:application/json,{\"ProjectNumber\":\"12345\",\"ProjectName\":\"8000-2016\",\"PreparedBy\":\"Nami\",\"DrawingNumber\":\"Nami\",\"CommissionNumber\":\"\",\"ElevatorDesignation\":\"\",\"ElevatorNumber\":\"\",\"Logo\":\"NamiLift\",\"LanguageOptions\":\"ENG\",\"Standard\":\"PL400\",\"NumberOfFloor\":2,\"LengthOfCar\":2000,\"WidthOfCar\":1100,\"Pits\":true,\"PitHeight\":50,\"ZoneSectionStart\":239,\"HeightAboveTopElevator\":0,\"ElectricBoxSide\":\"a\",\"ElectricBoxFloorNo\":\"0\",\"ElectricBoxDefault\":false,\"OuterRoof\":false,\"OuterRoofSide\":\"A\",\"WindowsSectionA\":\"0-0\",\"WindowsSectionB\":\"0-5000\",\"WindowsSectionC\":\"0-0\",\"WindowsSectionD\":\"0-0\",\"DefaultDoorSize\":false,\"Colorelevator\":\"RAL 9001\",\"Colordoor\":\"RAL 9001\",\"Safelinemx2\":false,\"Safelinemx2gsm\":false,\"Schoolcontrolassa\":false,\"Schoolcontrol\":false,\"Intercom\":false,\"Callsend\":false,\"Firealarmdrive\":false,\"Folderseat\":false,\"Floorvoiceannouncement\":false,\"Lsfcable\":false,\"Telephone\":false,\"Keyswitch\":false,\"Ups\":false,\"Comments\":\"-\",\"LiftHeightLevel0\":0,\"DoorSideLevel0\":\"A\",\"TypeOfDoorLevel0\":\"A1\",\"DoorHingeLevel0\":\"Right\",\"DoorSizeLevel0\":900,\"DoorHeightLevel0\":2000,\"DoorCloserLevel0\":true,\"CanopyLevel0\":true,\"CallBoxLevel0\":true,\"LiftHeightLevel1\":5000,\"DoorSideLevel1\":\"A\",\"TypeOfDoorLevel1\":\"A1\",\"DoorHingeLevel1\":\"Right\",\"DoorSizeLevel1\":900,\"DoorHeightLevel1\":2000,\"DoorCloserLevel1\":false,\"CanopyLevel1\":false,\"CallBoxLevel1\":false}"
+  },
+  "onProgress": {
+    "ondemand": true,
+    "url": "https://wlnr5sjl3a.execute-api.us-east-1.amazonaws.com/Masked:UK/Z3b5X3xUWxXiH6C9r9i9UlRU=",
+    "headers": {
+      "Content-Type": "application/json",
+      "x-das-authorize": "awssigv4(us-east-1)",
+      "x-ads-token-data": "{\"access_token\":{\"client_id\":\"AxKpTedNAliBEA6LWLkvrMtSZBGKsKax\"},\"scope\":\"data:read data:write data:create bucket:create bucket:read code:all\",\"expires_in\":3597,\"client_id\":\"AxKpTedNAliBEA6LWLkvrMtSZBGKsKax\"}",
+      "x-ads-gateway-secret": "Masked:F6VCvje5cIP0zOGCxgARjmSopQI="
+    },
+    "verb": "put"
+  }
+}
+"Quotas":{
+  "limitProcessingTimeSec": 900,
+  "limitTotalUncompressedAppsSizeInMB": 500
+}
+[02/18/2022 09:13:28] Starting work item 4bd23f9b12584f0c9c1b4d0145966842
+[02/18/2022 09:13:28] Start download phase.
+[02/18/2022 09:13:28] Start downloading input: verb - 'GET', url - 'https://developer.api.autodesk.com/oss/v2/signedresources/e68b57a1-19ab-465a-af9b-30cd0a2a5348?region=US'
+[02/18/2022 09:13:28] Embedded resource [{"ProjectNumber":"12345","ProjectName":"8000-2016","PreparedBy":"Nami","DrawingNumber":"Nami","CommissionNumber":"","ElevatorDesignation":"","ElevatorNumber":"","Logo":"NamiLift","LanguageOptions":"ENG","Standard":"PL400","NumberOfFloor":2,"LengthOfCar":2000,"WidthOfCar":1100,"Pits":true,"PitHeight":50,"ZoneSectionStart":239,"HeightAboveTopElevator":0,"ElectricBoxSide":"a","ElectricBoxFloorNo":"0","ElectricBoxDefault":false,"OuterRoof":false,"OuterRoofSide":"A","WindowsSectionA":"0-0","WindowsSectionB":"0-5000","WindowsSectionC":"0-0","WindowsSectionD":"0-0","DefaultDoorSize":false,"Colorelevator":"RAL 9001","Colordoor":"RAL 9001","Safelinemx2":false,"Safelinemx2gsm":false,"Schoolcontrolassa":false,"Schoolcontrol":false,"Intercom":false,"Callsend":false,"Firealarmdrive":false,"Folderseat":false,"Floorvoiceannouncement":false,"Lsfcable":false,"Telephone":false,"Keyswitch":false,"Ups":false,"Comments":"-","LiftHeightLevel0":0,"DoorSideLevel0":"A","TypeOfDoorLevel0":"A1","DoorHingeLevel0":"Right","DoorSizeLevel0":900,"DoorHeightLevel0":2000,"DoorCloserLevel0":true,"CanopyLevel0":true,"CallBoxLevel0":true,"LiftHeightLevel1":5000,"DoorSideLevel1":"A","TypeOfDoorLevel1":"A1","DoorHingeLevel1":"Right","DoorSizeLevel1":900,"DoorHeightLevel1":2000,"DoorCloserLevel1":false,"CanopyLevel1":false,"CallBoxLevel1":false}] is saved as file: T:\Aces\Jobs\4bd23f9b12584f0c9c1b4d0145966842\params.json.
+[02/18/2022 09:13:28] '4890548' bytes have been written to T:\Aces\Jobs\4bd23f9b12584f0c9c1b4d0145966842\zip_473.zip.
+[02/18/2022 09:13:28] End downloading file from 'https://developer.api.autodesk.com/oss/v2/signedresources/e68b57a1-19ab-465a-af9b-30cd0a2a5348?region=US'.
+[02/18/2022 09:13:29] T:\Aces\Jobs\4bd23f9b12584f0c9c1b4d0145966842\zip_473.zip has been unpacked to folder T:\Aces\Jobs\4bd23f9b12584f0c9c1b4d0145966842\unpack_folder_474.
+[02/18/2022 09:13:29] End download phase successfully.
+[02/18/2022 09:13:29] Start preparing script and command line parameters.
+[02/18/2022 09:13:29] Command line: [ /i "T:\Aces\Jobs\4bd23f9b12584f0c9c1b4d0145966842\unpack_folder_474\MasterAssembly.iam" /al "T:\Aces\Applications\b609abdeb60f1db4547277bdc48e5579.AxKpTedNAliBEA6LWLkvrMtSZBGKsKax.NamiliftActivity[1].package" "T:\Aces\Jobs\4bd23f9b12584f0c9c1b4d0145966842\params.json"]
+[02/18/2022 09:13:29] End preparing script and command line parameters.
+[02/18/2022 09:13:29] Start script phase.
+[02/18/2022 09:13:29] Start Inventor Core Engine standard output dump.
+[02/18/2022 09:13:29] InventorCoreConsole.exe Information: 0 : InventorCoreConsole.exe: 25.0.18300.0, 461-7e71832
+[02/18/2022 09:13:29] InventorCoreConsole.exe Information: 0 : Starting Inventor Server.
+[02/18/2022 09:13:29] InventorCoreConsole.exe Information: 0 : Started Inventor Server 2021.3 (Build 253353000, 353) (25, 30, 35300, 0000)
+[02/18/2022 09:13:29] InventorCoreConsole.exe Information: 0 : Loading plug-in: iLogic Plugin
+[02/18/2022 09:13:29]     InventorCoreConsole.exe Information: 0 : Activating plug-in: iLogic Plugin
+[02/18/2022 09:13:29]     iLogic Plugin: initializing...
+[02/18/2022 09:13:30] InventorCoreConsole.exe Information: 0 : Loading plug-in: iLogic Plugin
+[02/18/2022 09:13:30] InventorCoreConsole.exe Information: 0 : Setting up iLogicLogLevelTo: Warn
+[02/18/2022 09:13:30] InventorCoreConsole.exe Information: 0 : Opening document: T:\Aces\Jobs\4bd23f9b12584f0c9c1b4d0145966842\unpack_folder_474\MasterAssembly.iam Invisible mode: False
+[02/18/2022 09:13:30] InventorCoreConsole.exe Information: 0 : Opened
+[02/18/2022 09:13:30] InventorCoreConsole.exe Information: 0 : Getting Inventor plug-in.
+[02/18/2022 09:13:30] InventorCoreConsole.exe Information: 0 : Plug-in: sample plugin
+[02/18/2022 09:13:30]     InventorCoreConsole.exe Information: 0 : Activating plug-in: sample plugin
+[02/18/2022 09:13:30]     InventorCoreConsole.exe Information: 0 : : samplePlugin (1.0.0.24): initializing... 
+[02/18/2022 09:13:30]     InventorCoreConsole.exe Information: 0 : Executing 'RunWithArguments' method on Automation object.
+[02/18/2022 09:13:30]     InventorCoreConsole.exe Information: 0 : RunWithArguments called with 'MasterAssembly.iam'. Parameters: T:\Aces\Jobs\4bd23f9b12584f0c9c1b4d0145966842\params.json.
+[02/18/2022 09:13:30]     InventorCoreConsole.exe Information: 0 : Processing T:\Aces\Jobs\4bd23f9b12584f0c9c1b4d0145966842\unpack_folder_474\MasterAssembly.iam
+[02/18/2022 09:13:30]     InventorCoreConsole.exe Information: 0 : Inventor Parameters JSON: "{"ProjectNumber":"12345","ProjectName":"8000-2016","PreparedBy":"Nami","DrawingNumber":"Nami","CommissionNumber":"","ElevatorDesignation":"","ElevatorNumber":"","Logo":"NamiLift","LanguageOptions":"ENG","Standard":"PL400","NumberOfFloor":2,"LengthOfCar":2000,"WidthOfCar":1100,"Pits":true,"PitHeight":50,"ZoneSectionStart":239,"HeightAboveTopElevator":0,"ElectricBoxSide":"a","ElectricBoxFloorNo":"0","ElectricBoxDefault":false,"OuterRoof":false,"OuterRoofSide":"A","WindowsSectionA":"0-0","WindowsSectionB":"0-5000","WindowsSectionC":"0-0","WindowsSectionD":"0-0","DefaultDoorSize":false,"Colorelevator":"RAL 9001","Colordoor":"RAL 9001","Safelinemx2":false,"Safelinemx2gsm":false,"Schoolcontrolassa":false,"Schoolcontrol":false,"Intercom":false,"Callsend":false,"Firealarmdrive":false,"Folderseat":false,"Floorvoiceannouncement":false,"Lsfcable":false,"Telephone":false,"Keyswitch":false,"Ups":false,"Comments":"-","LiftHeightLevel0":0,"DoorSideLevel0":"A","TypeOfDoorLevel0":"A1","DoorHingeLevel0":"Right","DoorSizeLevel0":900,"DoorHeightLevel0":2000,"DoorCloserLevel0":true,"CanopyLevel0":true,"CallBoxLevel0":true,"LiftHeightLevel1":5000,"DoorSideLevel1":"A","TypeOfDoorLevel1":"A1","DoorHingeLevel1":"Right","DoorSizeLevel1":900,"DoorHeightLevel1":2000,"DoorCloserLevel1":false,"CanopyLevel1":false,"CallBoxLevel1":false}"
+[02/18/2022 09:13:30]     InventorCoreConsole.exe Information: 0 : HeartBeating every 50000ms.
+[02/18/2022 09:13:30]     InventorCoreConsole.exe Information: 0 : Parameter to change: ProjectNumber:12345
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'ProjectNumber' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: ProjectName:8000-2016
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'ProjectName' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: PreparedBy:Nami
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'PreparedBy' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: DrawingNumber:Nami
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'DrawingNumber' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: CommissionNumber:
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'CommissionNumber' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: ElevatorDesignation:
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'ElevatorDesignation' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: ElevatorNumber:
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'ElevatorNumber' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Logo:NamiLift
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'Logo' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: LanguageOptions:ENG
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'LanguageOptions' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Standard:PL400
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'Standard' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: NumberOfFloor:2
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: LengthOfCar:2000
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: WidthOfCar:1100
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Pits:true
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: PitHeight:50
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: ZoneSectionStart:239
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: HeightAboveTopElevator:0
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: ElectricBoxSide:a
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'ElectricBoxSide' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: ElectricBoxFloorNo:0
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: ElectricBoxDefault:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: OuterRoof:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: OuterRoofSide:A
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'OuterRoofSide' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: WindowsSectionA:0-0
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'WindowsSectionA' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: WindowsSectionB:0-5000
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'WindowsSectionB' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: WindowsSectionC:0-0
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'WindowsSectionC' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: WindowsSectionD:0-0
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'WindowsSectionD' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: DefaultDoorSize:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Colorelevator:RAL 9001
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'Colorelevator' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Colordoor:RAL 9001
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'Colordoor' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Safelinemx2:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Safelinemx2gsm:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Schoolcontrolassa:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Schoolcontrol:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Intercom:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Callsend:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Firealarmdrive:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Folderseat:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Floorvoiceannouncement:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Lsfcable:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Telephone:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Keyswitch:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Ups:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: Comments:-
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'Comments' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: LiftHeightLevel0:0
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: DoorSideLevel0:A
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'DoorSideLevel0' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: TypeOfDoorLevel0:A1
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'TypeOfDoorLevel0' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: DoorHingeLevel0:Right
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'DoorHingeLevel0' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: DoorSizeLevel0:900
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: DoorHeightLevel0:2000
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: DoorCloserLevel0:true
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: CanopyLevel0:true
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: CallBoxLevel0:true
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: LiftHeightLevel1:5000
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: DoorSideLevel1:A
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'DoorSideLevel1' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: TypeOfDoorLevel1:A1
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'TypeOfDoorLevel1' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: DoorHingeLevel1:Right
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Error: 0 : Cannot update 'DoorHingeLevel1' parameter. (The parameter is incorrect. (Exception from HRESULT: 0x80070057 (E_INVALIDARG)))
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: DoorSizeLevel1:900
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: DoorHeightLevel1:2000
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: DoorCloserLevel1:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: CanopyLevel1:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : Parameter to change: CallBoxLevel1:false
+[02/18/2022 09:13:31]     InventorCoreConsole.exe Information: 0 : MainRule Start
+[02/18/2022 09:13:44]     InventorCoreConsole.exe Information: 0 : MainRule End
+[02/18/2022 09:13:44]     InventorCoreConsole.exe Information: 0 : Doc updated.
+[02/18/2022 09:13:44]     InventorCoreConsole.exe Information: 0 : Ending HeartBeat
+[02/18/2022 09:13:44]     InventorCoreConsole.exe Information: 0 : Generate drawing document
+[02/18/2022 09:13:44]     InventorCoreConsole.exe Information: 0 : Create a new drawing document
+[02/18/2022 09:13:45]     InventorCoreConsole.exe Information: 0 : Get or create a new drawing sheet
+[02/18/2022 09:13:45]     InventorCoreConsole.exe Information: 0 : Create a base view
+[02/18/2022 09:13:46]     InventorCoreConsole.exe Information: 0 : Change scale of base drawing view
+[02/18/2022 09:13:46]     InventorCoreConsole.exe Information: 0 : Create projected view
+[02/18/2022 09:13:47]     InventorCoreConsole.exe Information: 0 : Create part list
+[02/18/2022 09:13:47]     InventorCoreConsole.exe Information: 0 : Create Revision table
+[02/18/2022 09:13:47]     InventorCoreConsole.exe Information: 0 : Done:Create Revision table
+[02/18/2022 09:13:47]     InventorCoreConsole.exe Information: 0 : Saving IDW T:\Aces\Jobs\4bd23f9b12584f0c9c1b4d0145966842\unpack_folder_474\MasterAssembly.idw
+[02/18/2022 09:13:47]     InventorCoreConsole.exe Information: 0 : MainRule Start
+[02/18/2022 09:13:48]     InventorCoreConsole.exe Information: 0 : MainRule End
+[02/18/2022 09:13:49]     InventorCoreConsole.exe Information: 0 : Saved IDW as T:\Aces\Jobs\4bd23f9b12584f0c9c1b4d0145966842\unpack_folder_474\MasterAssembly.idw
+[02/18/2022 09:13:49]     InventorCoreConsole.exe Information: 0 : HeartBeating every 50000ms.
+[02/18/2022 09:13:49]     InventorCoreConsole.exe Information: 0 : MainRule Start
+[02/18/2022 09:13:50]     InventorCoreConsole.exe Information: 0 : MainRule End
+[02/18/2022 09:13:50]     InventorCoreConsole.exe Information: 0 : Ending HeartBeat
+[02/18/2022 09:13:50]     InventorCoreConsole.exe Information: 0 : Zipping up updated Assembly.
+[02/18/2022 09:13:50]     InventorCoreConsole.exe Information: 0 : HeartBeating every 50000ms.
+[02/18/2022 09:13:50]     InventorCoreConsole.exe Information: 0 : Ending HeartBeat
+[02/18/2022 09:13:50]     InventorCoreConsole.exe Information: 0 : Saved as T:\Aces\Jobs\4bd23f9b12584f0c9c1b4d0145966842\Result.zip
+[02/18/2022 09:13:50]     InventorCoreConsole.exe Information: 0 : Performing iLogic diagnostics...
+[02/18/2022 09:13:50]     InventorCoreConsole.exe Information: 0 : End of iLogic diagnostics...
+[02/18/2022 09:13:50]     InventorCoreConsole.exe Information: 0 : Deactivating plug-in: sample plugin
+[02/18/2022 09:13:50]     InventorCoreConsole.exe Information: 0 : : samplePlugin: deactivating... 
+[02/18/2022 09:13:52] End Inventor Core Engine standard output dump.
+[02/18/2022 09:13:52] End script phase.
+[02/18/2022 09:13:52] Start upload phase.
+[02/18/2022 09:13:52] End upload phase successfully.
+[02/18/2022 09:13:52] Job finished with result Succeeded
+[02/18/2022 09:13:52] Job Status:
+{
+  "status": "success",
+  "reportUrl": "https://dasprod-store.s3.amazonaws.com/workItem/AxKpTedNAliBEA6LWLkvrMtSZBGKsKax/4bd23f9b12584f0c9c1b4d0145966842/report.txt?X-Amz-Expires=90000&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJ%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCICUv3%2Bk3E%2Ft7wZgqKlblHhmHUsOioQ5Qeew0HtMsOecnAiBLZok7Sh2zVkuLlYboQNmpgwsCmW0LYoGYyctI2Fls9CqkAgjo%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAMaDDIyMDQ3MzE1MjMxMCIMAZahTwnsYMICG6jGKvgBhQFYqJgs%2FFw7eVEKHgNuA1kOtqxROfROZbazFHNlpqnCiddOQmTVhDz3Fqh%2B3bQiaXmkvcZizQvjlupQ6GOHysA%2FB9%2BmgkoUryi6VQqx4%2FEf1ILhdCXkv0VWg1H3l2sH30buqdUzam%2Fm%2FRUJ4LCgTgYuFKziX32sytfGAzmDRA3JMS%2F%2BbNHUtTQIj2kQfVYMELbAVGPTQZ7GakJmaZQYZL%2BpQe7Jiubj1UitOZPBlGUxp9yGIeN8y9e0H%2FMOaKWKbX05RpUKSNufC1ZHWTCoo5H3DPNdiAeTQgw1sZy%2BOrIupsGqYRjKZxO92Pl1q2iKuoHDba0Qo70wg4i9kAY6mwFmV%2Fv5wMzWVL8Zr3%2FeczHJanoLwoEvmUEZHema64G5G2eILJNoeKTouywcXW98coH1ybaVl%2F7g1dTmjQh2AY3yWcFSgVvOf0Fwt99IC7eKgcleHxbfjP4RgfPLv3k32rFEfZjHUKH1dk0RKOrCix29BB8wkoHaH3zQU%2FXhqGc%2FMoi6eR%2BQWtzYsYvMe7RzvfFTYc0lfcHpNxk6HA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIATGVJZKM3K7TBIIET/20220218/us-east-1/s3/aws4_request&X-Amz-Date=20220218T091328Z&X-Amz-SignedHeaders=host&X-Amz-Signature=f29e3e8e5f03ba215f2b2730f4da82fc01b9e834ea7113dc32891157d2ef0b51",
+  "stats": {
+    "timeQueued": "2022-02-18T09:13:28.152135Z",
+    "timeDownloadStarted": "2022-02-18T09:13:28.301389Z",
+    "timeInstructionsStarted": "2022-02-18T09:13:29.1574286Z",
+    "timeInstructionsEnded": "2022-02-18T09:13:52.1880224Z",
+    "timeUploadEnded": "2022-02-18T09:13:52.1886034Z",
+    "bytesDownloaded": 4891875
+  },
+  "id": "4bd23f9b12584f0c9c1b4d0145966842"
+}

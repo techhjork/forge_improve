@@ -19,9 +19,8 @@ const fileName ={
 	pdfName :'Namilift.pdf', 
 	zipName :'MasterDownload.zip',
 	svfName :'MasterDownload.svf', 
-	dwgName :'MasterDownload.dwg',
+	dwgName :'MasterDownload.dwg', 
 }
-
 
 const urls={
 	qualifiedName:config.credentials.client_id + '.' + fileName.activityID + '+' + fileName.alias,
@@ -39,7 +38,7 @@ const urls={
 
 
 const text={
-    'activityId': urls.qualifiedName,
+    'activityId':"Inventor.Configuration2019+prod",// urls.qualifiedName,
     'arguments': {
         'InventorDoc': {
             'url': urls.inventorInputSignedUrl, //'https://developer.api.autodesk.com/oss/v2/buckets/' + encodeURIComponent(inputBucketName) + '/objects/' + encodeURIComponent(uploadZipName) + '/' + encodeURIComponent(topAssemblyName),

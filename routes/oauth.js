@@ -20,20 +20,10 @@ import {
    downloadDwg,
    signSvf,
    downloadSvf,
+   translateFile,
+   checkTranslationProgress
 } from "../services/api.js";
 import { values, urls } from "../utils/values.js";
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -44,6 +34,7 @@ router.get("/", async (req, res) => {
       "1. @GET /api/forge/oauth => onClick createDownload \n\n".brightRed.bold
    );
    try {
+
       // 1
       let response = await oauth();
       values.access_token = response.access_token;
@@ -68,6 +59,7 @@ router.get("/", async (req, res) => {
 
       let statusWorkItem = ["pending", "cancelled", "failedLimitProcessingTime", "failedDownload", "failedInstructions", "failedUpload", "failedUploadOptional"]
       let getWorkIte;
+       //Download Each Folder
       let intervalId = setInterval(async ()=>{
          if(typeof getWorkIte == "object"){
             if(getWorkIte?.status == "success"){
@@ -77,6 +69,7 @@ router.get("/", async (req, res) => {
                return;
             }else if(statusWorkItem.includes(getWorkIte?.status)){
                clearInterval(intervalId)
+               // throw Error("Download Failed");
             }
          }
          getWorkIte = await getWorkItem()
@@ -87,12 +80,19 @@ router.get("/", async (req, res) => {
 
       // 4
       //@PUT https://developer.api.autodesk.com/oss/v2/buckets/basbrliyiahr1x9eyiai4atpmdcuz5pf_aoutput/objects/MasterDownload.zip
-      let a = await uploadObject();
       console.log("5. @PUT {{Autodesk}}/oss/v2/buckets/:bucketKey/objects/:objectKey/signed => Axios /\n\treturn {bucketKey,objectId,location,objectKey}".brightRed.bold);
-      console.log(`${JSON.stringify(a)}\n`.green);
+      let a = await uploadObject();
+      console.log(`${a.objectId}\n`.bgCyan);
+       let safeURN = await Buffer.from(a.objectId).toString('base64')
+      console.log(`${safeURN.split("=")[0]}`.bgMagenta)
+      let translated = translateFile(safeURN.split("=")[0])
+      console.log("5. @PUT {{Autodesk}}/modelderivative/v2/designdata/job => Axios /\n\treturn {svf}".brightRed.bold);
+      console.log(`translated: ${translated}`.bgMagenta)
 
+      let dat = checkTranslationProgress(safeURN)
+      console.log("checkTranslationProgress : ",dat)
 
-
+      
       // 5
       //@POST https://developer.api.autodesk.com/oss/v2/buckets/basbrliyiahr1x9eyiai4atpmdcuz5pf_aoutput/objects/MasterDownload.zip
    
@@ -110,13 +110,26 @@ router.get("/", async (req, res) => {
 
       downloadPdf();
 
-      // let dwgSignedUrl = await signDwg()
-      // downloadDwg()
+      let dwgSignedUrl = await signDwg()
+       urls.dwgSignedUrl = dwgSignedUrl.signedUrl
+      console.log(`dwgSignedUrl`.brightRed.bold,dwgSignedUrl)
+      downloadDwg()
 
-      // let svfSignedUrl= await signSvf()
-      // downloadSvf()
 
-      res.json({ token: values.access_token });
+
+      let svfSignedUrl= await signSvf()
+       urls.svfSignedUrl = svfSignedUrl.signedUrl
+      console.log(`svfSignedUrl`.brightRed.bold,svfSignedUrl)
+      downloadSvf()
+
+
+
+
+     
+
+      res.json({ token: values.access_token }); 
+
+
    } catch (error) {
       console.log("@GET /api/forge/oauth => ereor  :", error);
       res.send("Failed to authenticate" + error);

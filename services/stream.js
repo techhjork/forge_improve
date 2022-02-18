@@ -6,7 +6,7 @@ const __dirname = Path.resolve()
 export default async function stream(req, name){
   console.log(req,name)
   // const path = Path.resolve(Path.join(__dirname,'public/Downloads/'));
-  const path = Path.resolve(name);
+  const path = Path.resolve(`Download/${name}`);
 
   const writer = fs.createWriteStream(path);
 
